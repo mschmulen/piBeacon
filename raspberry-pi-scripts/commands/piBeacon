@@ -1,5 +1,5 @@
 #! /bin/sh
-# /etc/init.d/dashboard
+# /etc/init.d/piBeacon
 
 ### BEGIN INIT INFO
 # Provides: piBeacon
@@ -10,7 +10,7 @@
 # Short-Description: Start daemon at boot time
 # Description:       This file should be used to construct scripts to be
 #                    placed in /etc/init.d. 
-# 									test with  /etc/init.d/piBoard start
+# 									test with  /etc/init.d/piBeacon start
 ### END INIT INFO
 
 # If you want a command to always run, put it here
@@ -37,7 +37,7 @@ start)
   
 	echo "starting node: $NODE $SERVER_JS_FILE"
 	echo "start the app server"
-  sudo node run /home/pi/piBeacon/piBeacon-kiosk/app.js
+  sudo node /home/pi/piBeacon/piBeacon-kiosk/app.js
   
 	#sudo forever start /home/pi/piBeacon/piBeacon-kiosk/app.js
 	
