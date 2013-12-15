@@ -247,8 +247,11 @@
     sockbleRSSIRaw.onmessage = function(e) {
       
       // push a new data point onto the back
-      var bleaconBlob = e.data;
-      console.log( bleaconValue );
+      var bleaconBlob = JSON.parse(e.data);
+      console.log( bleaconBlob );
+      console.log( bleaconBlob.rssi );
+      console.log( bleaconBlob.uuid );
+      console.log( bleaconBlob.proximity );
       
       dataBLERaw.push( parseFloat(bleaconBlob.rssi) );
       

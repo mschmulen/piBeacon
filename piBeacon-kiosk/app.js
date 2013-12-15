@@ -80,7 +80,8 @@ Bleacon.on('discover', function(bleacon) {
   //broadcast to the sock bleRSSIRawConnections
   for (var ii=0; ii < bleRSSIRawConnections.length; ii++) {
     var bleaconBlob = {'rssi': bleacon.rssi, 'uuid': bleacon.uuid, 'major': bleacon.major, 'minor': bleacon.minor, 'measuredPower': bleacon.measuredPower, 'accuracy': bleacon.accuracy, 'proximity' : bleacon.proximity };
-    bleRSSIRawConnections[ii].write( bleaconBlob );
+    var blob = JSON.stringify(bleacon );
+    bleRSSIRawConnections[ii].write( blob );
   }
   
 });
