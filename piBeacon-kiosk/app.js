@@ -24,16 +24,45 @@ var path = require('path');
 console.log("dont forget: sudo hciconfig hci0 up");
 
 var Bleacon = require('bleacon');
+
+
+function startAdvertising()
+{
+  var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
+  var major = 0; // 0 - 65535
+  var minor = 0; // 0 - 65535
+  var measuredPower = -59; // -128 - 127 (measured RSSI at 1 meter)
+  
+  Bleacon.startAdvertising(uuid, major, minor, measuredPower);
+}//end startAdvertising
+
+function stopAdvertising()
+{
+  Bleacon.stopAdvertising();
+}//end stopAdvertising
+
+
+//iBeacon Scanning and Sock channels 
+
 var hist = [];
 
 //Sockjs
 var sockjs = require('sockjs');
-var connections = [];
 
+//create some channels
 var chat = sockjs.createServer();
+var ChatConnections = [];
+
+var bleRSSIRawServer = sockjs.createServer();
+var bleRSSIRawConnections = [];
+
+//var bleRSSIAverageConnections = [];
 
 Bleacon.on('discover', function(bleacon) {
+  
   var rssi = bleacon.rssi;
+  var uuid = bleacon.uuid;
+  
   hist.unshift(rssi);
   if (hist.length > 50)
     hist.splice(50, 1);
@@ -43,9 +72,14 @@ Bleacon.on('discover', function(bleacon) {
   var xs = new Array(Math.floor(-avg) + 1).join('x');
   //console.log(xs);
   
-  //broadcast to the sock connections
-  for (var ii=0; ii < connections.length; ii++) {
-    connections[ii].write( avg );
+  //broadcast to the sock ChatConnections
+  for (var ii=0; ii < ChatConnections.length; ii++) {
+    ChatConnections[ii].write( avg );
+  }
+  
+  //broadcast to the sock bleRSSIRawConnections
+  for (var ii=0; ii < bleRSSIRawConnections.length; ii++) {
+    bleRSSIRawConnections[ii].write( bleacon );
   }
   
 });
@@ -53,30 +87,52 @@ Bleacon.on('discover', function(bleacon) {
 Bleacon.startScanning();
 
 chat.on('connection', function(conn) {
-    connections.push(conn);
-    var number = connections.length;
+    ChatConnections.push(conn);
+    var number = ChatConnections.length;
     //conn.write("Welcome, User " + number);
         
     /*
     conn.on('data', function(message) {
-        for (var ii=0; ii < connections.length; ii++) {
-            connections[ii].write("User " + number + " says: " + message);
+        for (var ii=0; ii < ChatConnections.length; ii++) {
+            ChatConnections[ii].write("User " + number + " says: " + message);
         }
     });
     */
     
     conn.on('close', function(e) {
         console.log('    [-] ticker close   ' + conn, e);
-        for (var ii=0; ii < connections.length; ii++) {
-            connections[ii].write("User " + number + " has disconnected");
+        for (var ii=0; ii < ChatConnections.length; ii++) {
+            ChatConnections[ii].write("User " + number + " has disconnected");
         }
     });
 });
 
-var sockServer = http.createServer();
-chat.installHandlers(sockServer, {prefix:'/chat'});
-sockServer.listen(9999, '0.0.0.0');
 
+//BLE RSSI Raw Channel
+bleRSSIRawServer.on('connection', function(conn) {
+    bleRSSIRawConnections.push(conn);
+    var number = bleRSSIRawConnections.length;
+    
+    conn.on('close', function(e) {
+        console.log('    [-] ticker close   ' + conn, e);
+        for (var ii=0; ii < bleRSSIRawConnections.length; ii++) {
+            bleRSSIRawConnections[ii].write("User " + number + " has disconnected");
+        }
+    });
+});
+
+
+
+
+
+//instantiate the server
+var sockServer = http.createServer();
+
+//handlers for the different channels
+chat.installHandlers(sockServer, {prefix:'/chat'});
+bleRSSIRawServer.installHandlers(sockServer, {prefix:'/bleRSSIRaw'});
+
+sockServer.listen(9999, '0.0.0.0');
 
 var app = express();
 
