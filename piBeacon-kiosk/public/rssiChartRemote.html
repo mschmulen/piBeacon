@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="piboard.dashboard">
 <head>
-	
+	<meta http-equiv="refresh" content="200">
   <meta charset="utf-8">
   <title>StrongLoop Dashboard</title>
   <link rel="stylesheet" href="css/bootstrap.css">
@@ -59,7 +59,7 @@
  
   var n = 40,
       random = d3.random.normal(0, .2),
-      dataBLERaw = d3.range(n).map(random)
+      data2 = d3.range(n).map(random),
       data = d3.range(n).map(random);
  
   var margin = {top: 20, right: 20, bottom: 20, left: 40},
@@ -109,7 +109,7 @@
   var path2 = svg.append("g")
         .attr("clip-path", "url(#clip)")
       .append("path")
-        .datum(dataBLERaw)
+        .datum(data2)
         .attr("class", "line2")
         .attr("d", line);
   tick();
@@ -134,6 +134,8 @@
   }//end tick
   
   var sock = new SockJS('http://192.168.2.2:9999/chat');
+  //var raw = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
+  
   function ChatCtrl($scope) {
       
       $scope.messages = [];
@@ -159,13 +161,47 @@
         
         // pop the old data point off the front
         data.shift();
-        
       };
+      
+      
+      /*
+      raw.onmessage = function(e) {
+        
+        // push a new data point onto the back
+        var bleaconBlob = JSON.parse(e.data);
+        
+        data2.push( parseFloat(bleaconBlob.rssi) );
+      
+        path2
+          .attr("d", line)
+          .attr("transform", null)
+        .transition()
+          .duration(500)
+          .ease("linear")
+          .attr("transform", "translate(" + x(-1) + ",0)")
+          .each("end", tick);
+    
+          dataBLERaw.shift();
+      }
+      */
+      
   }//end ChatCtrl
+    
+  
   
   </script>
   
   <div ng-controller="ChatCtrl"> </div>  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   <script>
