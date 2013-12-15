@@ -24,7 +24,7 @@ var path = require('path');
 console.log("dont forget: sudo hciconfig hci0 up");
 
 var Bleacon = require('bleacon');
-
+var sockjs = require('sockjs');
 
 function startAdvertising()
 {
@@ -42,12 +42,9 @@ function stopAdvertising()
 }//end stopAdvertising
 
 
+
 //iBeacon Scanning and Sock channels 
-
 var hist = [];
-
-//Sockjs
-var sockjs = require('sockjs');
 
 //create some channels
 var chat = sockjs.createServer();
@@ -56,7 +53,8 @@ var ChatConnections = [];
 var bleRSSIRawServer = sockjs.createServer();
 var bleRSSIRawConnections = [];
 
-//var bleRSSIAverageConnections = [];
+var bleRSSIAverageServer = sockjs.createServer();
+var bleRSSIAverageConnections = [];
 
 Bleacon.on('discover', function(bleacon) {
   
@@ -75,6 +73,11 @@ Bleacon.on('discover', function(bleacon) {
   //broadcast to the sock ChatConnections
   for (var ii=0; ii < ChatConnections.length; ii++) {
     ChatConnections[ii].write( avg );
+  }
+  
+  //broadcast to the sock bleRSSIAverageConnections
+  for (var ii=0; ii < bleRSSIAverageConnections.length; ii++) {
+    bleRSSIAverageConnections[ii].write( avg );
   }
   
   //broadcast to the sock bleRSSIRawConnections
@@ -123,6 +126,18 @@ bleRSSIRawServer.on('connection', function(conn) {
     });
 });
 
+//BLE RSSI Average Channel 
+bleRSSIAverageServer.on('connection', function(conn) {
+    bleRSSIAverageConnections.push(conn);
+    var number = bleRSSIAverageConnections.length;
+    
+    conn.on('close', function(e) {
+        console.log('    [-] ticker close   ' + conn, e);
+        for (var ii=0; ii < bleRSSIAverageConnections.length; ii++) {
+            bleRSSIAverageConnections[ii].write("User " + number + " has disconnected");
+        }
+    });
+});
 
 
 
@@ -133,6 +148,7 @@ var sockServer = http.createServer();
 //handlers for the different channels
 chat.installHandlers(sockServer, {prefix:'/chat'});
 bleRSSIRawServer.installHandlers(sockServer, {prefix:'/bleRSSIRaw'});
+bleRSSIAverageServer.installHandlers(sockServer, {prefix:'/bleRSSIAverage'});
 
 sockServer.listen(9999, '0.0.0.0');
 
