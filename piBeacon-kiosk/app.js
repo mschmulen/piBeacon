@@ -39,7 +39,7 @@ Bleacon.on('discover', function(bleacon) {
     return total + current;
   }) / hist.length;
   var xs = new Array(Math.floor(-avg) + 1).join('x');
-  console.log(xs);
+  //console.log(xs);
   
   //broadcast to the sock connections
   for (var ii=0; ii < connections.length; ii++) {
@@ -55,6 +55,7 @@ chat.on('connection', function(conn) {
     var number = connections.length;
     //conn.write("Welcome, User " + number);
     
+    /*
     var schedule = function() {
         for (var ii=0; ii < connections.length; ii++) {
           connections[ii].write( Math.random() );
@@ -62,6 +63,7 @@ chat.on('connection', function(conn) {
         tref = setTimeout(schedule, 1000);
     };
     tref = setTimeout(schedule, 1000);
+    */
     
     /*
     conn.on('data', function(message) {
