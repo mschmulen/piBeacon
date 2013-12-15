@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" ng-app="piboard.dashboard">
+<head>
+	<meta http-equiv="refresh" content="20">
+  <meta charset="utf-8">
+  <title>StrongLoop Dashboard</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css"/>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+  
+ 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+	<!-- <script src="lib/angular/angular.js"></script> -->
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="lib/angular/angular-sanitize.js"></script>
+  
+  
+</head>
+<body>
+  
+  <h1>RSSI Strip Chart</h1>
+  
+  <!--
+  <style>
+  .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+  }
+  </style>
+  <div class="chart"> </div>
+  <script>
+  d3.select(".chart")
+  var data = [4, 8, 15, 16, 23, 42];
+
+  var x = d3.scale.linear()
+      .domain([0, d3.max(data)])
+      .range([0, 420]);
+
+  d3.select(".chart")
+    .selectAll("div")
+      .data(data)
+    .enter().append("div")
+      .style("width", function(d) { return x(d) + "px"; })
+      .text(function(d) { return d; });
+        
+  </script>
+  
+  
+  
+  <div ng-include="'partials/piBeacon.html'"></div>
+	<div ng-include="'partials/metrics.html'"></div>
+  
+  <style>
+
+  .chart2 rect {
+    fill: steelblue;
+  }
+
+  .chart2 text {
+    fill: white;
+    font: 10px sans-serif;
+    text-anchor: end;
+  }
+
+  </style>
+  <svg class="chart2"></svg>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script>
+
+  var width = 420,
+      barHeight = 20;
+
+  var x = d3.scale.linear()
+      .range([0, width]);
+
+  var chart = d3.select(".chart2")
+      .attr("width", width);
+
+  d3.tsv("data.tsv", type, function(error, data) {
+    x.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+    chart.attr("height", barHeight * data.length);
+
+    var bar = chart.selectAll("g")
+        .data(data)
+      .enter().append("g")
+        .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+    bar.append("rect")
+        .attr("width", function(d) { return x(d.value); })
+        .attr("height", barHeight - 1);
+
+    bar.append("text")
+        .attr("x", function(d) { return x(d.value) - 3; })
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em")
+        .text(function(d) { return d.value; });
+  });
+
+  function type(d) {
+    d.value = +d.value; // coerce to number
+    return d;
+  }
+
+  </script>
+  -->
+    
+    
+  <style>
+  svg {
+    font: 10px sans-serif;
+  }
+ 
+  .line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+  }
+ 
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+ 
+  </style>
+  <script>
+ 
+ 
+  var n = 40,
+      random = d3.random.normal(0, .2),
+      data = d3.range(n).map(random);
+ 
+  var margin = {top: 20, right: 20, bottom: 20, left: 40},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+ 
+  var x = d3.scale.linear()
+      .domain([0, n - 1])
+      .range([0, width]);
+ 
+  var y = d3.scale.linear()
+      .domain([-1, 1])
+      .range([height, 0]);
+ 
+  var line = d3.svg.line()
+      .x(function(d, i) { return x(i); })
+      .y(function(d, i) { return y(d); });
+ 
+  var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+  svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+    .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+ 
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + y(0) + ")")
+      .call(d3.svg.axis().scale(x).orient("bottom"));
+ 
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(d3.svg.axis().scale(y).orient("left"));
+ 
+  var path = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+ 
+ 
+  tick();
+ 
+  function tick() {
+    
+    // push a new data point onto the back
+    data.push(random());
+    
+    // redraw the line, and slide it to the left
+    path
+        .attr("d", line)
+        .attr("transform", null)
+      .transition()
+        .duration(500)
+        .ease("linear")
+        .attr("transform", "translate(" + x(-1) + ",0)")
+        .each("end", tick);
+ 
+    // pop the old data point off the front
+    data.shift();
+  }//end tick
+  
+  
+  
+  
+  
+  var sock = new SockJS('http://127.0.0.1:9999/chat');
+  function ChatCtrl($scope) {
+    
+      //data.push(random());
+      //data.shift();
+      
+      $scope.messages = [];
+      $scope.sendMessage = function() {
+          sock.send($scope.messageText);
+          $scope.messageText = "";
+      };
+      
+      sock.onmessage = function(e) {
+          $scope.messages.push(e.data);
+          $scope.$apply();
+      };
+  }//end ChatCtrl
+  
+  </script>
+  
+  <div ng-controller="ChatCtrl">
+  <ul>
+      <li ng-repeat="message in messages">{{message}}</li>
+  </ul>
+</div>
+  
+  <!--
+  <section id="main" class="row-fluid">
+    <div ng-include="'partials/githubLibuv.html'"></div>
+  </section>
+  -->
+	
+	<!-- App Resources -->
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+  <script type="text/javascript">
+	
+</body>
+</html>

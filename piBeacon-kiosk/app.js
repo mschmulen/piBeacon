@@ -20,11 +20,15 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
-
-
+//Bleacon
 var Bleacon = require('bleacon');
-
 var hist = [];
+
+//Sockjs
+var sockjs = require('sockjs');
+var connections = [];
+
+var rssiBroadcast = sockjs.createServer();
 
 Bleacon.on('discover', function(bleacon) {
   var rssi = bleacon.rssi;
@@ -37,24 +41,34 @@ Bleacon.on('discover', function(bleacon) {
   var xs = new Array(Math.floor(-avg) + 1).join('x');
   console.log(xs);
 });
-
 Bleacon.startScanning();
 
-//Sockjs
-var sockjs = require('sockjs');
-var connections = [];
-
 var chat = sockjs.createServer();
+
 chat.on('connection', function(conn) {
     connections.push(conn);
     var number = connections.length;
-    conn.write("Welcome, User " + number);
+    //conn.write("Welcome, User " + number);
+    
+    var schedule = function() {
+        for (var ii=0; ii < connections.length; ii++) {
+          connections[ii].write( Math.random() );
+        }
+        tref = setTimeout(schedule, 1000);
+    };
+    tref = setTimeout(schedule, 1000);
+    
+    /*
     conn.on('data', function(message) {
         for (var ii=0; ii < connections.length; ii++) {
             connections[ii].write("User " + number + " says: " + message);
         }
     });
-    conn.on('close', function() {
+    */
+    
+    conn.on('close', function(e) {
+        clearTimeout(tref);
+        console.log('    [-] ticker close   ' + conn, e);
         for (var ii=0; ii < connections.length; ii++) {
             connections[ii].write("User " + number + " has disconnected");
         }
