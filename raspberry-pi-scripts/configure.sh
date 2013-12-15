@@ -1,6 +1,6 @@
 #!/bin/sh
-	
-cd ~/piBVeacon
+
+cd ~/piBeacon
 echo "init.d - piBeacon Commands"
 #sudo update-rc.d -f piBoard remove
 sudo cp raspberry-pi-scripts/commands/piBeacon /etc/init.d/
