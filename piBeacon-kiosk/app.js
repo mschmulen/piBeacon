@@ -54,17 +54,7 @@ chat.on('connection', function(conn) {
     connections.push(conn);
     var number = connections.length;
     //conn.write("Welcome, User " + number);
-    
-    /*
-    var schedule = function() {
-        for (var ii=0; ii < connections.length; ii++) {
-          connections[ii].write( Math.random() );
-        }
-        tref = setTimeout(schedule, 1000);
-    };
-    tref = setTimeout(schedule, 1000);
-    */
-    
+        
     /*
     conn.on('data', function(message) {
         for (var ii=0; ii < connections.length; ii++) {
@@ -74,7 +64,6 @@ chat.on('connection', function(conn) {
     */
     
     conn.on('close', function(e) {
-        clearTimeout(tref);
         console.log('    [-] ticker close   ' + conn, e);
         for (var ii=0; ii < connections.length; ii++) {
             connections[ii].write("User " + number + " has disconnected");
