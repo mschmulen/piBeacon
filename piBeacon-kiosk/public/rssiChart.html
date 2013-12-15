@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="piboard.dashboard">
 <head>
-	<meta http-equiv="refresh" content="20">
+	
   <meta charset="utf-8">
   <title>StrongLoop Dashboard</title>
   <link rel="stylesheet" href="css/bootstrap.css">
@@ -145,7 +145,7 @@
       .range([0, width]);
  
   var y = d3.scale.linear()
-      .domain([-1, 1])
+      .domain([-100, 1])
       .range([height, 0]);
  
   var line = d3.svg.line()
@@ -180,8 +180,8 @@
       .attr("class", "line")
       .attr("d", line);
  
- 
-  tick();
+  
+  //tick();
  
   function tick() {
     
@@ -202,25 +202,40 @@
     data.shift();
   }//end tick
   
-  
-  
-  
-  
   var sock = new SockJS('http://127.0.0.1:9999/chat');
+  //var sock = new SockJS('http://192.168.2.2:9999/chat');
   function ChatCtrl($scope) {
     
-      //data.push(random());
-      //data.shift();
-      
       $scope.messages = [];
+      
+      /*
       $scope.sendMessage = function() {
           sock.send($scope.messageText);
           $scope.messageText = "";
       };
+      */
       
       sock.onmessage = function(e) {
-          $scope.messages.push(e.data);
-          $scope.$apply();
+        
+        // push a new data point onto the back
+        var rssiValue = parseFloat(e.data);
+        console.log( rssiValue );
+        //rssiValue = random();
+        
+        data.push(rssiValue);
+    
+        // redraw the line, and slide it to the left
+        path
+            .attr("d", line)
+            .attr("transform", null)
+          .transition()
+            .duration(500)
+            .ease("linear")
+            .attr("transform", "translate(" + x(-1) + ",0)")
+            .each("end", tick);
+        
+        // pop the old data point off the front
+        data.shift();
       };
   }//end ChatCtrl
   
