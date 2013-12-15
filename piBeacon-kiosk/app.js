@@ -28,7 +28,7 @@ var hist = [];
 var sockjs = require('sockjs');
 var connections = [];
 
-var rssiBroadcast = sockjs.createServer();
+var chat = sockjs.createServer();
 
 Bleacon.on('discover', function(bleacon) {
   var rssi = bleacon.rssi;
@@ -40,10 +40,15 @@ Bleacon.on('discover', function(bleacon) {
   }) / hist.length;
   var xs = new Array(Math.floor(-avg) + 1).join('x');
   console.log(xs);
+  
+  //broadcast to the sock connections
+  for (var ii=0; ii < connections.length; ii++) {
+    connections[ii].write( avg );
+  }
+  
 });
-Bleacon.startScanning();
 
-var chat = sockjs.createServer();
+Bleacon.startScanning();
 
 chat.on('connection', function(conn) {
     connections.push(conn);
