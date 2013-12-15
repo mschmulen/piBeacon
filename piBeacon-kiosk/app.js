@@ -21,6 +21,8 @@ var http = require('http');
 var path = require('path');
 
 //Bleacon
+console.log("dont forget: sudo hciconfig hci0 up");
+
 var Bleacon = require('bleacon');
 var hist = [];
 
