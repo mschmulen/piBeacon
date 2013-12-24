@@ -37,10 +37,10 @@ var nearestUser = {
 
 //local metricBoards for randomly rotating
 var pageIndex = 0;
-var metricBoards = [];
-metricBoards.push({url:"dashboard-location", pageRefreshTime:20 });
-metricBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
-metricBoards.push({url:"dashboard-status", pageRefreshTime:20 });
+var dashBoards = [];
+dashBoards.push({url:"dashboard-location", pageRefreshTime:20 });
+dashBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
+dashBoards.push({url:"dashboard-status", pageRefreshTime:20 });
 
 // ++++++++++++++++++++++++++++++++++++++++
 //  url page routes
@@ -49,17 +49,17 @@ function index(req, res){
 	
   updateIPV4Interfaces();
   
-	var boardURL = metricBoards[ Math.floor((Math.random()* metricBoards.length ) ) ] 
+	var boardURL = dashBoards[ Math.floor((Math.random()* dashBoards.length ) ) ] 
 	
 	var user = {
 		picURL: "https://pbs.twimg.com/profile_images/378800000261764427/63adb78327a8017fb671e76411c1902a_bigger.png",
 		twitterID: "@strongloop"
 	}
 	
-  var metricBoardToShow = metricBoards[pageIndex];
+  var dashBoardToShow = dashBoards[pageIndex];
   
-  res.render(metricBoardToShow.url, { title: 'dashboard-server', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime: metricBoardToShow.pageRefreshTime });
-  pageIndex = (pageIndex+metricBoards.length-1) % metricBoards.length;
+  res.render( dashBoardToShow.url, { title: 'dashboard-server', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime: dashBoardToShow.pageRefreshTime });
+  pageIndex = (pageIndex+dashBoards.length-1) % dashBoards.length;
   
 }//end index
 
