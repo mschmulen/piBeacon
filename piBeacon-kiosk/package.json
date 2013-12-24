@@ -16,7 +16,6 @@
     "q": "~0.9.3",
     "request": "~2.21.0",
     "strong-cluster-control": "~0.1.0",
-    "strong-agent": "~0.2.15",
     "bleacon": "~0.1.2",
     "sockjs": "~0.3.8"
   }
