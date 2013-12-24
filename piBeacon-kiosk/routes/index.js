@@ -40,7 +40,7 @@ var pageIndex = 0;
 var metricBoards = [];
 metricBoards.push({url:"dashboard-location", pageRefreshTime:20 });
 metricBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
-metricBoards.push({url:"status", pageRefreshTime:20 });
+metricBoards.push({url:"dashboard-status", pageRefreshTime:20 });
 
 // ++++++++++++++++++++++++++++++++++++++++
 //  url page routes
