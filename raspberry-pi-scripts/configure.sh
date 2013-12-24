@@ -91,18 +91,18 @@ echo "update LXDE autostart script"
 sudo cp raspberry-pi-scripts/autostart /etc/xdg/lxsession/LXDE
 
 #npm install the piBeacon-kiosk
-cd ~/piBeacon/piBeacon-kiosk
-rm -rf node_modules
-#npm update
-sudo npm install
+  #cd ~/piBeacon/piBeacon-kiosk
+  #sudo rm -rf node_modules
+  #npm update
+  #sudo sudo npm install
 
 #start the node-angular-display-server
 /etc/init.d/piBeacon start
 
-#sleep 20s
+sleep 20s
 
 #echo "Navigate to http://$(hostname).local$PORT_USED to use the piBeacon dashboard"
 
-echo "restart"
-sudo reboot
+#echo "restart"
+#sudo reboot
 

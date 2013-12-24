@@ -30,7 +30,7 @@ sudo apt-get install git-core git -y
 sudo apt-get install scons build-essential libpcre++-dev xulrunner-dev libboost-dev libboost-program-options-dev libboost-thread-dev libboost-filesystem-dev
 
 #redis
-sudo apt-get redis-server -y
+sudo apt-get install redis-server -y
 
 #AFP (Apple Filing Protocol) http://netatalk.sourceforge.net/
 #Apple’s Zero Configuration protocol, Bonjour
