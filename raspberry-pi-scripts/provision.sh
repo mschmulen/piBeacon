@@ -14,6 +14,8 @@ sudo apt-get upgrade -y
 #sudo apt-get install python-rpi.gpio
 
 #Bluetooth support
+sudo apt-get install bluetooth -y
+sudo apt-get install bluez-utils bluez-compat -y
 sudo apt-get install libbluetooth-dev -y
 
 #Chromium
