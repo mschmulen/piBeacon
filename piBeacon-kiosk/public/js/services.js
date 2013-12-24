@@ -6,7 +6,7 @@
 // In this case it is a simple value service.
 angular.module('piboard.dashboard.services', ['ngResource']).
 	
-	factory("LoopBackMetrics", function($resource) {
+	factory("SomeMetrics", function($resource) {
 		
   	return $resource('http://localhost:3000/metrics');
 		

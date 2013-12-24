@@ -2,62 +2,16 @@
 
 var os=require('os'); //http://nodejs.org/api/os.html#os_os_networkinterfaces 
 
-//var MYmetricBoards = require('metricBoards.json')
-
-function status(req, res){
-  
-  //process.env.PORT, process.env.IP
+var iPV4Interfaces = [];
+function updateIPV4Interfaces()
+{
   var ifaces=os.networkInterfaces();
   
-  var iPV4Interfaces = [];
+  iPV4Interfaces = [];
   
   for (var dev in ifaces) {
     var alias=0;
-	
-    ifaces[dev].forEach(function(details){
-      if (details.family=='IPv4') {
-		  
-		  var obj = {
-		          address: details.address,
-		          family: details.family,
-				  name:dev
-		      };
-		  iPV4Interfaces.push(obj);
-		  
-          console.log(dev+(alias?':'+alias:''),details.address);
-          ++alias;
-      }
-    });
-  }//end for
-  
-  res.render('status', { title: 'dashboard-server', iPV4Interfaces:iPV4Interfaces });
-}//end status
-
-
-function index(req, res){
-	
-	//local metricBoards for randomly rotating
-	var metricBoards = [];
-	metricBoards.push("dashboard-static.html");
-	metricBoards.push("http://woot.com");
-	metricBoards.push("http://reddit.com");
-	metricBoards.push("http://bl.ocks.org/mbostock/raw/5977197/");
-	metricBoards.push("http://bl.ocks.org/mbostock/raw/5100636/");
-	metricBoards.push("http://bl.ocks.org/mbostock/raw/4679202/");
-	metricBoards.push("http://bl.ocks.org/mbostock/raw/6746848");
-	metricBoards.push("SVG-simple.html");
-	metricBoards.push("http://news.ycombinator.com");
-	//metricBoards.push("simpleSVG-barChart.html");
-	//metricBoards.push("SVG-globe.html");
-	
-  //process.env.PORT, process.env.IP
-  var ifaces=os.networkInterfaces();
-  
-  var iPV4Interfaces = [];
-  
-  for (var dev in ifaces) {
-    var alias=0;
-	
+	  
     ifaces[dev].forEach(function(details){
       if (details.family=='IPv4' && !details.internal ) {
 		  
@@ -66,16 +20,35 @@ function index(req, res){
 		          family: details.family,
 				  name:dev
 		      };
-		  iPV4Interfaces.push(obj);
-		  
+		      
+          iPV4Interfaces.push(obj);
+		      
           console.log(dev+(alias?':'+alias:''),details.address);
           ++alias;
       }
     });
   }//end for
+}//end updateIPV4Interfaces
+
+var nearestUser = {
+	picURL: "https://pbs.twimg.com/profile_images/378800000261764427/63adb78327a8017fb671e76411c1902a_bigger.png",
+	twitterID: "@strongloop"
+}
+
+//local metricBoards for randomly rotating
+var pageIndex = 0;
+var metricBoards = [];
+metricBoards.push({url:"dashboard-location", pageRefreshTime:20 });
+metricBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
+metricBoards.push({url:"status", pageRefreshTime:20 });
+
+// ++++++++++++++++++++++++++++++++++++++++
+//  url page routes
+// ++++++++++++++++++++++++++++++++++++++++
+function index(req, res){
+	
+  updateIPV4Interfaces();
   
-	//var boardURL = metricBoards[ Math.floor((Math.random()*metricBoards.length)+1); ] 
-	//var boardURL = "dashboard-static.html";//metricBoards[ 0 ]; 
 	var boardURL = metricBoards[ Math.floor((Math.random()* metricBoards.length ) ) ] 
 	
 	var user = {
@@ -83,11 +56,37 @@ function index(req, res){
 		twitterID: "@strongloop"
 	}
 	
-	//index
-  res.render('fixed', { title: 'dashboard-server', currentUser:user, iFrameURL: boardURL, iPV4Interfaces:iPV4Interfaces });
-
+  var metricBoardToShow = metricBoards[pageIndex];
+  
+  res.render(metricBoardToShow.url, { title: 'dashboard-server', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime: metricBoardToShow.pageRefreshTime });
+  pageIndex = (pageIndex+metricBoards.length-1) % metricBoards.length;
+  
 }//end index
 
+// department specific pages
+function location(req, res){
+  updateIPV4Interfaces();
+  res.render('dashboard-location', { title: 'dashboard-location', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+}//end 
+
+function partner(req, res){
+  updateIPV4Interfaces();
+  res.render('dashboard-partner', { title: 'dashboard-partner', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+}//end
+
+function admin(req, res){
+	updateIPV4Interfaces();
+  res.render('dashboard-admin', { title: 'dashboard-admin', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+}//end
+
+// ++++++++++++++++++++++++++++++++++++++++
+//  JSON services
+// ++++++++++++++++++++++++++++++++++++++++
+
+function status(req, res){
+  updateIPV4Interfaces();
+  res.render('dashboard-status', { title: 'dashboard-status', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+}//end status
 
 //Services
 function uptime(req, res){
@@ -96,6 +95,7 @@ function uptime(req, res){
 }
 
 function ipstatus(req, res){
+  
   //process.env.PORT, process.env.IP
   var ifaces=os.networkInterfaces();
   
@@ -103,11 +103,11 @@ function ipstatus(req, res){
   
   for (var dev in ifaces) {
     var alias=0;
-	
+	  
     ifaces[dev].forEach(function(details){
       
 			if (details.family=='IPv4' && !details.internal ) {
-		  
+		    
 		  	var obj = { address: details.address, family: details.family, name:dev };
 				
 				//if (name == 'en' && !address.internal) {
@@ -128,9 +128,32 @@ function bluetoothstatus(req, res){
 
 // Set up routes
 module.exports = function(app, options) {
+  
+  //Pages
   app.get('/', index);
+  app.get('/location', location);
+  app.get('/admin', admin);  
+	app.get('/status', status);
+  
+  //Services
+	app.get('/api/ipstatus', ipstatus);
+	app.get('/api/bluetoothstatus', bluetoothstatus);
+	app.get('/api/uptime', uptime);	
+  
+  /*
+  
+  app.get('/', index);
+  
+  //department specfic dashboard
+  app.get('/engineering', engineering);
+  app.get('/partner', partner);
+  
+  app.get('/admin', admin);
+  
 	app.get('/status', status);
 	app.get('/ipstatus', ipstatus);
 	app.get('/bluetoothstatus', bluetoothstatus);
 	app.get('/uptime', uptime);	
+  */
+  
 };

@@ -2,7 +2,7 @@
 
 // Controllers
 
-function piBeaconController($scope, LoopBackMetrics) {
+function piBeaconController($scope, SomeMetrics) {
   $scope.piBeacon = [
                     {name: "UUID", val: "AE0AB7ECF0994169B9ABDEC1ECF53774"},
                     {name: "val2", metric: " afs"},
@@ -10,7 +10,7 @@ function piBeaconController($scope, LoopBackMetrics) {
                    ];
 }
 
-function piBeaconRSSIController($scope, LoopBackMetrics) {
+function piBeaconRSSIController($scope, SomeMetrics) {
   $scope.piBeaconRSSI = [{x: 0, value: 12}, {x: 1, value: 4}, {x: 2, value: 7}, {x: 3, value: 0}];
   
   // Line
@@ -25,15 +25,15 @@ function piBeaconRSSIController($scope, LoopBackMetrics) {
   
 }
 
-function GenericMetricsController($scope, LoopBackMetrics) {
-  $scope.metrics = [{name: "Metric 1", metric: 50},
-                   {name: "Metric 2", metric: 43},
-                   {name: "Metric 3", metric: 27},
-                   {name: "Metric 4", metric: 29},
-                   {name: "Metric 5", metric: 29},
-                   {name: "Metric 6", metric: 34}
+function GenericMetricsController($scope, SomeMetrics) {
+  $scope.metrics = [{name: "Metric 1", metric: 20},
+                   {name: "Metric 2", metric: 30},
+                   {name: "Metric 3", metric: 40},
+                   {name: "Metric 4", metric: 50},
+                   {name: "Metric 5", metric: 60},
+                   {name: "Metric 6", metric: 70}
                    ];
-	//$scope.events = LoopBackMetrics.query();
+	//$scope.events = SomeMetrics.query();
 }
 
 function GithubNodeController($scope, GithubNode) {

@@ -2,19 +2,16 @@
 <html lang="en" ng-app="piboard.dashboard">
 <head>
 	<meta http-equiv="refresh" content="200">
-  <meta charset="utf-8">
+  <meta charset="utf-8">  
   <title>StrongLoop Dashboard</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css"/>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
   
- 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
-	<!-- <script src="lib/angular/angular.js"></script> -->
+  <script src="lib/d3/d3.v3.js"></script>
+	<script src="lib/sockjs/sockjs-0.3.js"></script>
+	<script src="lib/angular/angular.js"></script>
   <script src="lib/angular/angular-resource.js"></script>
   <script src="lib/angular/angular-sanitize.js"></script>
-  
-  <!-- <script src="https://github.com/shawnbot/d3-bootstrap/blob/master/d3-bootstrap.js"/>-->
   
 </head>
 <body>
@@ -87,18 +84,6 @@
       stroke: blue;
       stroke-width: 1.5px;
     }
-  
-    .line2  {
-      fill: none;
-      stroke: blue;
-      stroke-width: 1.5px;
-    }
-  
-    .line3  {
-      fill: none;
-      stroke: green;
-      stroke-width: 1.5px;
-    }
  
     .axis path,
     .axis line {
@@ -108,49 +93,38 @@
     }
 	</style>
   
+  
   <div class="page">
-  
-	<div class="header">blestats.html</div>
-  
-  <div class="row show-grid4">
-    <div class="span4" >RSSI Filter Average<div class="rssi-filter-average"></div></div>
-    <div class="span4" >RSSI Filter None<div class="rssi-filter-none"></div></div>
-    <div class="span4" >RSSI Filter X<div class="rssi-filter-none"></div></div>
-  </div>
-  
-  <!-- 
-  <div class="row show-grid4">
-    <div class="span4" style="background:green"><div class="rssi-filter-average"></div></div>
-    <div class="span4" style="background:green"><div class="rssi-filter-none">widget 02</div></div>
-    <div class="span4" style="background:green"><div class="widget-span3">widget 03</div></div>
-  </div>
-  
-  <div class="row show-grid3">
-    <div class="span3" style="background:green"><div class="widget-span3">widget 01</div></div>
-    <div class="span3" style="background:green"><div class="widget-span3">widget 02</div></div>
-    <div class="span3" style="background:green"><div class="widget-span3">widget 03</div></div>
-    <div class="span3" style="background:green"><div class="widget-span3">widget 04</div></div>
-  </div>  
-  -->
-  
-  <div class="footer">blestats.html</div>
- </div> 
- 
- <script>
+    
+	  <div class="header">Bluetooth Low Energy Engagement Status  </div>
+    
+    <div class="row show-grid4">
+      <div class="span4" >RSSI Filter Average<div class="rssi-filter-average"></div></div>
+      <div class="span4" >RSSI Filter None<div class="rssi-filter-none"></div></div>
+      <div class="span4" >RSSI Filter State<div class="rssi-filter-state"></div></div>
+      </div>
+    
+    <div class="footer"> - </div>
+  </div> 
 
- //FilterChart
- var chartWidth = 235;
- var chartHeight = 160;
 
- var n = 40,
+
+
+  <script>
+    
+   //FilterChart
+   var chartWidth = 235;
+   var chartHeight = 160;
+   
+   var n = 40,
      random = d3.random.normal(0, .2),
      data = d3.range(n).map(random);
 
- var margin = {top: 20, right: 20, bottom: 20, left: 40},
+  var margin = {top: 20, right: 20, bottom: 20, left: 40},
      width = chartWidth - margin.left - margin.right,
      height = chartHeight - margin.top - margin.bottom;
 
- var x = d3.scale.linear()
+  var x = d3.scale.linear()
      .domain([0, n - 1])
      .range([0, width]);
 
@@ -162,33 +136,96 @@
      .x(function(d, i) { return x(i); })
      .y(function(d, i) { return y(d); });
 
- var svg = d3.selectAll(".rssi-filter-average").append("svg")
+ var svgAverage = d3.selectAll(".rssi-filter-average").append("svg")
      .attr("width", width + margin.left + margin.right)
      .attr("height", height + margin.top + margin.bottom)
    .append("g")
      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
- svg.append("defs").append("clipPath")
+ svgAverage.append("defs").append("clipPath")
      .attr("id", "clip")
-   .append("rect")
+     .append("rect")
      .attr("width", width)
      .attr("height", height);
 
- svg.append("g")
+ svgAverage.append("g")
      .attr("class", "x axis")
      .attr("transform", "translate(0," + y(0) + ")")
      .call(d3.svg.axis().scale(x).orient("bottom"));
 
- svg.append("g")
+ svgAverage.append("g")
      .attr("class", "y axis")
      .call(d3.svg.axis().scale(y).orient("left"));
 
- var path = svg.append("g")
+ var pathAverage = svgAverage.append("g")
      .attr("clip-path", "url(#clip)")
    .append("path")
      .datum(data)
      .attr("class", "line")
      .attr("d", line);
+     
+     
+   var svgNone = d3.selectAll(".rssi-filter-none").append("svg")
+         .attr("width", width + margin.left + margin.right)
+         .attr("height", height + margin.top + margin.bottom)
+       .append("g")
+         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+     svgNone.append("defs").append("clipPath")
+         .attr("id", "clip")
+         .append("rect")
+         .attr("width", width)
+         .attr("height", height);
+
+     svgNone.append("g")
+         .attr("class", "x axis")
+         .attr("transform", "translate(0," + y(0) + ")")
+         .call(d3.svg.axis().scale(x).orient("bottom"));
+
+     svgNone.append("g")
+         .attr("class", "y axis")
+         .call(d3.svg.axis().scale(y).orient("left"));
+
+     var pathNone = svgNone.append("g")
+         .attr("clip-path", "url(#clip)")
+       .append("path")
+         .datum(data)
+         .attr("class", "line")
+         .attr("d", line);
+         
+     
+     
+         var svgState = d3.selectAll(".rssi-filter-state").append("svg")
+               .attr("width", width + margin.left + margin.right)
+               .attr("height", height + margin.top + margin.bottom)
+             .append("g")
+               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+           svgState.append("defs").append("clipPath")
+               .attr("id", "clip")
+               .append("rect")
+               .attr("width", width)
+               .attr("height", height);
+
+           svgState.append("g")
+               .attr("class", "x axis")
+               .attr("transform", "translate(0," + y(0) + ")")
+               .call(d3.svg.axis().scale(x).orient("bottom"));
+
+           svgState.append("g")
+               .attr("class", "y axis")
+               .call(d3.svg.axis().scale(y).orient("left"));
+
+           var pathState = svgState.append("g")
+               .attr("clip-path", "url(#clip)")
+             .append("path")
+               .datum(data)
+               .attr("class", "line")
+               .attr("d", line);
+               
+                   
+         
+         
 
  tick();
 
@@ -198,7 +235,7 @@
    data.push(random());
    
    // redraw the line, and slide it to the left
-   path
+   pathAverage
        .attr("d", line)
        .attr("transform", null)
      .transition()
@@ -211,14 +248,15 @@
    data.shift();
  }//end tick
  
- var sock = new SockJS('http://127.0.0.1:9999/chat');
- //var raw = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
+ var sockAverage = new SockJS('http://192.168.2.2:9999/chat');
+ var sockNone = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
+ var sockState = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
  
  function CtrlRSSIFilterAverage($scope) {
      
      $scope.messages = [];
      
-     sock.onmessage = function(e) {
+     sockAverage.onmessage = function(e) {
        
        // push a new data point onto the back
        var rssiValue = parseFloat(e.data);
@@ -228,7 +266,7 @@
        data.push(rssiValue);
        
        // redraw the line, and slide it to the left
-       path
+       pathAverage
            .attr("d", line)
            .attr("transform", null)
          .transition()
@@ -242,25 +280,80 @@
      };
      
  }//end CtrlRSSIFilterAverage
- </script>
-
- <div ng-controller="CtrlRSSIFilterAverage"> </div>  
  
-
+ 
+ 
+ function CtrlRSSIFilterNone($scope) {
+     
+     $scope.messages = [];
+     
+     sockNone.onmessage = function(e) {
+       
+       // push a new data point onto the back
+       var rssiValue = parseFloat(e.data);
+       console.log( rssiValue );
+       //rssiValue = random();
+       
+       data.push(rssiValue);
+       
+       // redraw the line, and slide it to the left
+       pathNone
+           .attr("d", line)
+           .attr("transform", null)
+         .transition()
+           .duration(500)
+           .ease("linear")
+           .attr("transform", "translate(" + x(-1) + ",0)")
+           .each("end", tick);
+       
+       // pop the old data point off the front
+       data.shift();
+     };
+     
+ }//end CtrlRSSIFilterNone
+ 
+ 
+ function CtrlRSSIFilterState($scope) {
+     
+     $scope.messages = [];
+     
+     sockState.onmessage = function(e) {
+       
+       // push a new data point onto the back
+       var rssiValue = parseFloat(e.data);
+       console.log( rssiValue );
+       //rssiValue = random();
+       
+       data.push(rssiValue);
+       
+       // redraw the line, and slide it to the left
+       pathState
+           .attr("d", line)
+           .attr("transform", null)
+         .transition()
+           .duration(500)
+           .ease("linear")
+           .attr("transform", "translate(" + x(-1) + ",0)")
+           .each("end", tick);
+       
+       // pop the old data point off the front
+       data.shift();
+     };
+     
+ }//end CtrlRSSIFilterState
+ 
+ 
+ 
+ </script>
+ 
+ <div ng-controller="CtrlRSSIFilterAverage"> </div>  
   
-  <!--
-  <section id="main" class="row-fluid">
-    <div ng-include="'partials/githubLibuv.html'"></div>
-  </section>
-  -->
-	
-	<!-- App Resources -->
+  <!-- App Resources -->
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
-  <script type="text/javascript">
 	
 </body>
 </html>
