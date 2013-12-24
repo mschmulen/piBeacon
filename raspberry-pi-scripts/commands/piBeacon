@@ -35,6 +35,8 @@ start)
   echo "turn on BlueTooth device"
   sudo hciconfig hci0 up
   
+  sleep 20s
+  
 	echo "starting node: $NODE $SERVER_JS_FILE"
 	echo "start the app server"
   sudo node /home/pi/piBeacon/piBeacon-kiosk/app.js
