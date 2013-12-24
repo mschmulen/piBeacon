@@ -17,9 +17,14 @@ sudo cp raspberry-pi-scripts/lightdm.conf /etc/lightdm
 echo "update LXDE autostart script"
 sudo cp raspberry-pi-scripts/autostart /etc/xdg/lxsession/LXDE
 
+#npm install the piBeacon-kiosk
+cd ~/piBeacon/piBeacon-kiosk
+rm -rf node_modules
+#npm update
+sudo npm install
+
 #start the node-angular-display-server
 /etc/init.d/piBeacon start
-
 
 echo "restart"
 sudo reboot
