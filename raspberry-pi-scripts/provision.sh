@@ -2,6 +2,11 @@
 
 #sudo wget -N http://github.com/strongloop-community/node-angular-raspberry-pi-dashboard/master/provision.sh && sudo chmod +x ~/provision.sh && sudo ./provision.sh
 
+#rpi tuning
+#arm_freq=900
+#gpu_freq=450
+#core_freq=300
+
 #General dependencies
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -22,6 +27,9 @@ sudo apt-get install git-core git -y
 #sudo apt-get install build essential libssl-dev zlib1g-dev
 sudo apt-get install scons build-essential libpcre++-dev xulrunner-dev libboost-dev libboost-program-options-dev libboost-thread-dev libboost-filesystem-dev
 
+#AFP (Apple Filing Protocol) http://netatalk.sourceforge.net/
+#Apple’s Zero Configuration protocol, Bonjour
+sudo apt-get install netatalk -y
 
 #node 
 echo "Install Node"

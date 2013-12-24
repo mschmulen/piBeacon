@@ -1,0 +1,10 @@
+
+
+Check disk usage
+$ df -h
+
+Scan for the 20 largest files.
+$du -a /var | sort -n -r | head -n 20
+
+
+
