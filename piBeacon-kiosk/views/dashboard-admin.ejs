@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" ng-app="piboard.dashboard">
+<head>
+  <% if (pageRefreshTime) { %>
+      <meta http-equiv="refresh" content="<%= pageRefreshTime %>">
+	<% } %>
+  <meta charset="utf-8">
+  <title>StrongLoop Dashboard</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+  
+  <script type="text/javascript" src="lib/d3/d3.v3.js"></script>
+  
+  <h1>Admin</h1>
+  
+  <section id="main" class="row-fluid">
+    
+    <% if (title) { %>
+  		<p> uptime <%= title %> </p>
+  	<% } %>
+	
+  	<h2>Network interfaces:</h2>
+    <ul>
+  		<%for (var i = 0; i < iPV4Interfaces.length; i++) { %>
+  			<li> <%= iPV4Interfaces[i].name  %> =  <%= iPV4Interfaces[i].family  %> ,  <%= iPV4Interfaces[i].address  %></li>
+  		<% } %>
+  	</ul>
+	
+  	<h2>Blue tooth:</h2>
+    <% if (title) { %>
+  		<p> iBeacon <%= title %> </p>
+  	<% } %>
+    
+  </section>
+  
+	<script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="lib/angular/angular-sanitize.js"></script>
+  
+  <!--  <script src="lib/sockjs/sockjs-0.3.js"></script> -->
+	
+	<!-- App Resources -->
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+  <script type="text/javascript">
+	
+  </script>
+</body>
+</html>
