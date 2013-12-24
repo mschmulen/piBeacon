@@ -40,7 +40,6 @@ start)
 	echo "starting node: $NODE $SERVER_JS_FILE"
 	echo "start the app server"
   sudo node /home/pi/piBeacon/piBeacon-kiosk/app.js
-  
 	#sudo forever start /home/pi/piBeacon/piBeacon-kiosk/app.js
 	
 	#echo "start the dev IDE"

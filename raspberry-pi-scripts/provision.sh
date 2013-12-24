@@ -13,6 +13,9 @@ sudo apt-get upgrade -y
 
 #sudo apt-get install python-rpi.gpio
 
+#Bluetooth support
+sudo apt-get install libbluetooth-dev -y
+
 #Chromium
 sudo apt-get install chromium-browser -y
 sudo apt-get install chromium-browser-l10n -y
@@ -36,16 +39,8 @@ sudo apt-get install redis-server -y
 #Apple’s Zero Configuration protocol, Bonjour
 sudo apt-get install netatalk -y
 
-#node 
-echo "Install Node"
-#sudo apt-get update && sudo apt-get -y install build-essential nodejs nodejs-legacy npm  
-wget http://nodejs.org/dist/v0.10.18/node-v0.10.18.tar.gz
-tar -zxf node-v0.10.18.tar.gz
-cd node-v0.10.18
-./configure
-make
-sudo make install 
-#rm -rf node-v0.10.18.tar.gz
+#node
+#./nodejs-rpi.sh
 
 echo "Install Node globals , forever"
 sudo npm install forever -g
@@ -58,10 +53,10 @@ sudo npm install forever -g
 echo "provision.sh is done"
 echo "cloning the piBeacon repo"
 cd ~/
-git clone https://github.com/mschmulen/pibeacon piBeacon
+#git clone https://github.com/mschmulen/pibeacon piBeacon
 echo "running the piBeacon/raspberry-pi-scripts/configure.sh"
 cd ~/piBeacon/raspberry-pi-scripts/
 ./configure.sh
-echo "configure.sh is done, reboot and enjoy!"
+#echo "configure.sh is done, reboot and enjoy!"
 
 
