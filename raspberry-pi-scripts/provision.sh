@@ -11,6 +11,8 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 
+#sudo apt-get install python-rpi.gpio
+
 #Chromium
 sudo apt-get install chromium-browser -y
 sudo apt-get install chromium-browser-l10n -y
@@ -26,6 +28,9 @@ sudo apt-get install unclutterd -y
 sudo apt-get install git-core git -y
 #sudo apt-get install build essential libssl-dev zlib1g-dev
 sudo apt-get install scons build-essential libpcre++-dev xulrunner-dev libboost-dev libboost-program-options-dev libboost-thread-dev libboost-filesystem-dev
+
+#redis
+sudo apt-get redis-server -y
 
 #AFP (Apple Filing Protocol) http://netatalk.sourceforge.net/
 #Apple’s Zero Configuration protocol, Bonjour
