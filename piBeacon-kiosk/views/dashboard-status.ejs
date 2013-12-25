@@ -254,11 +254,11 @@
       // pop the old data point off the front
       data.shift();
     }//end tick
- 
-    var sockAverage = new SockJS('http://192.168.2.2:9999/chat');
-    var sockNone = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
-    var sockState = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
- 
+        
+    var sockAverage = new SockJS('http://127.0.0.1:9999/chat');
+    var sockNone = new SockJS('http://127.0.0.1:9999/bleRSSIRaw');
+    var sockState = new SockJS('http://127.0.0.1:9999/bleRSSIRaw');
+    
     function CtrlRSSIFilterAverage($scope) {
      
         $scope.messages = [];

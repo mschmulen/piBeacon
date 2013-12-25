@@ -61,6 +61,8 @@ Bleacon.on('discover', function(bleacon) {
   var rssi = bleacon.rssi;
   var uuid = bleacon.uuid;
   
+  console.log( 'discoverd: ' + bleacon.rssi + ' ' + bleacon.uuid )
+  
   hist.unshift(rssi);
   if (hist.length > 50)
     hist.splice(50, 1);
@@ -88,6 +90,8 @@ Bleacon.on('discover', function(bleacon) {
   }
   
 });
+
+console.log('- Bleacon.startScanning() ' );
 
 Bleacon.startScanning();
 
