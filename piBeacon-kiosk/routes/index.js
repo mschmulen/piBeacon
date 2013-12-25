@@ -83,13 +83,14 @@ function admin(req, res){
 //  JSON services
 // ++++++++++++++++++++++++++++++++++++++++
 
+function statusremote(req, res){
+  updateIPV4Interfaces();
+  res.render('dashboard-status-remote', { title: 'dashboard-status-remote', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+}//end status
+
 function status(req, res){
   updateIPV4Interfaces();
-  
-  require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-    console.log('addr: '+add);
-  })
-  
+  //require('dns').lookup(require('os').hostname(), function (err, add, fam) { console.log('addr: '+add); });
   res.render('dashboard-status', { title: 'dashboard-status', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
 }//end status
 
@@ -137,8 +138,9 @@ module.exports = function(app, options) {
   //Pages
   app.get('/', index);
   app.get('/location', location);
-  app.get('/admin', admin);  
+  app.get('/admin', admin);
 	app.get('/status', status);
+	app.get('/statusremote', statusremote);
   
   //Services
 	app.get('/api/ipstatus', ipstatus);
