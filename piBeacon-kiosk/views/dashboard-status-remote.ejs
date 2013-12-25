@@ -255,14 +255,9 @@
       data.shift();
     }//end tick
     
-    var sockAverage_url = '/chat'; //http://0.0.0.0:9999/chat
-    var sockAverage = new SockJS(sockAverage_url);
-    
-    var sockAverage_sockNone = '/bleRSSIRaw'; //http://0.0.0.0:9999/bleRSSIRaw
-    var sockNone = new SockJS(sockAverage_sockNone);
-    
-    var sockAverage_sockState = '/bleRSSIRaw'; // http://0.0.0.0:9999/bleRSSIRaw
-    var sockState = new SockJS(sockAverage_sockState);
+    var sockAverage = new SockJS('http://192.168.2.2:9999/chat');
+    var sockNone = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
+    var sockState = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
     
     function CtrlRSSIFilterAverage($scope) {
      

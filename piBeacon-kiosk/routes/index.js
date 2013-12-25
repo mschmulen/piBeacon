@@ -85,6 +85,11 @@ function admin(req, res){
 
 function status(req, res){
   updateIPV4Interfaces();
+  
+  require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+    console.log('addr: '+add);
+  })
+  
   res.render('dashboard-status', { title: 'dashboard-status', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
 }//end status
 

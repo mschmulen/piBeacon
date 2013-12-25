@@ -28,7 +28,7 @@ var sockjs = require('sockjs');
 
 function startAdvertising()
 {
-  var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
+  var uuid = '87209302-C7F2-4D56-B1D1-14EADD0CE41F';
   var major = 0; // 0 - 65535
   var minor = 0; // 0 - 65535
   var measuredPower = -59; // -128 - 127 (measured RSSI at 1 meter)
@@ -61,7 +61,7 @@ Bleacon.on('discover', function(bleacon) {
   var rssi = bleacon.rssi;
   var uuid = bleacon.uuid;
   
-  console.log( 'discoverd: ' + bleacon.rssi + ' ' + bleacon.uuid )
+  //console.log( 'discoverd: ' + bleacon.rssi + ' ' + bleacon.uuid )
   
   hist.unshift(rssi);
   if (hist.length > 50)
