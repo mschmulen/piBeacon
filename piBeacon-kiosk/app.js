@@ -29,8 +29,9 @@ var sockjs = require('sockjs');
 function startAdvertising()
 {
   var uuid = '87209302-C7F2-4D56-B1D1-14EADD0CE41F';
-  var major = 0; // 0 - 65535
-  var minor = 0; // 0 - 65535
+  var major = 1; //RaspberryPi piBeacons Major = 1  // 0 - 65535
+  var minor = 1; //RaspberryPi piBeacons Minor = 0 - 65535 and must be configured per deployment/location
+  
   var measuredPower = -59; // -128 - 127 (measured RSSI at 1 meter)
   
   Bleacon.startAdvertising(uuid, major, minor, measuredPower);
