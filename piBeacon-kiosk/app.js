@@ -42,7 +42,7 @@ function stopAdvertising()
   Bleacon.stopAdvertising();
 }//end stopAdvertising
 
-
+startAdvertising();
 
 //iBeacon Scanning and Sock channels 
 var hist = [];
