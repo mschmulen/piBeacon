@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : UIViewController < UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, CBPeripheralManagerDelegate>
 
 @end

@@ -10,4 +10,6 @@
 
 @interface piBeaconDetailViewController : UIViewController
 
+@property NSObject *model;
+
 @end

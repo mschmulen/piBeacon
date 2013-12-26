@@ -10,4 +10,16 @@
 
 @interface piBeacon : NSObject
 
+-(void) initWithConfig:(NSString *)beaconUUID beaconRegionId:(NSString*) beaconRegionId beaconMajor:(NSInteger)beaconMajor beaconMinor:(NSInteger)beaconMinor;
+
+//Beacon config
+@property(nonatomic) NSInteger piMajor;
+@property(nonatomic) NSInteger piMinor;
+@property(nonatomic) NSString *piUUID;
+@property(nonatomic) NSString *piRegionIdentifier;
+
+@property(nonatomic,retain) NSString *strUserName;
+@property(nonatomic,retain) NSString *strUserTitle;
+
+
 @end

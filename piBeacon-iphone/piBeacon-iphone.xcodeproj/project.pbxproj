@@ -24,6 +24,9 @@
 		AEB0E7DF186A7A83005475E0 /* piBeacon_iphoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E7DE186A7A83005475E0 /* piBeacon_iphoneTests.m */; };
 		AEB0E7E9186A7B82005475E0 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB0E7E8186A7B82005475E0 /* CoreBluetooth.framework */; };
 		AEB0E7EB186A7B89005475E0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB0E7EA186A7B89005475E0 /* CoreLocation.framework */; };
+		AEB0E7EF186C9324005475E0 /* ModelEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E7EE186C9324005475E0 /* ModelEngagement.m */; };
+		AEB0E7F2186C94B3005475E0 /* piBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E7F1186C94B3005475E0 /* piBeacon.m */; };
+		AEB0E7F5186C9C54005475E0 /* piBeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E7F4186C9C54005475E0 /* piBeaconDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,12 @@
 		AEB0E7DE186A7A83005475E0 /* piBeacon_iphoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = piBeacon_iphoneTests.m; sourceTree = "<group>"; };
 		AEB0E7E8186A7B82005475E0 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		AEB0E7EA186A7B89005475E0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AEB0E7ED186C9324005475E0 /* ModelEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelEngagement.h; sourceTree = "<group>"; };
+		AEB0E7EE186C9324005475E0 /* ModelEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelEngagement.m; sourceTree = "<group>"; };
+		AEB0E7F0186C94B3005475E0 /* piBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piBeacon.h; sourceTree = "<group>"; };
+		AEB0E7F1186C94B3005475E0 /* piBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = piBeacon.m; sourceTree = "<group>"; };
+		AEB0E7F3186C9C54005475E0 /* piBeaconDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piBeaconDetailViewController.h; sourceTree = "<group>"; };
+		AEB0E7F4186C9C54005475E0 /* piBeaconDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = piBeaconDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +139,7 @@
 				AEB0E7C6186A7A83005475E0 /* FirstViewController.m */,
 				AEB0E7C8186A7A83005475E0 /* SecondViewController.h */,
 				AEB0E7C9186A7A83005475E0 /* SecondViewController.m */,
+				AEB0E7EC186C9324005475E0 /* piBeacon */,
 				AEB0E7CB186A7A83005475E0 /* Images.xcassets */,
 				AEB0E7B7186A7A83005475E0 /* Supporting Files */,
 			);
@@ -163,6 +173,19 @@
 				AEB0E7DB186A7A83005475E0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AEB0E7EC186C9324005475E0 /* piBeacon */ = {
+			isa = PBXGroup;
+			children = (
+				AEB0E7ED186C9324005475E0 /* ModelEngagement.h */,
+				AEB0E7EE186C9324005475E0 /* ModelEngagement.m */,
+				AEB0E7F0186C94B3005475E0 /* piBeacon.h */,
+				AEB0E7F1186C94B3005475E0 /* piBeacon.m */,
+				AEB0E7F3186C9C54005475E0 /* piBeaconDetailViewController.h */,
+				AEB0E7F4186C9C54005475E0 /* piBeaconDetailViewController.m */,
+			);
+			path = piBeacon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,8 +286,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEB0E7CA186A7A83005475E0 /* SecondViewController.m in Sources */,
+				AEB0E7F5186C9C54005475E0 /* piBeaconDetailViewController.m in Sources */,
 				AEB0E7C1186A7A83005475E0 /* AppDelegate.m in Sources */,
 				AEB0E7C7186A7A83005475E0 /* FirstViewController.m in Sources */,
+				AEB0E7EF186C9324005475E0 /* ModelEngagement.m in Sources */,
+				AEB0E7F2186C94B3005475E0 /* piBeacon.m in Sources */,
 				AEB0E7BD186A7A83005475E0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
