@@ -24,15 +24,14 @@
     //[NSUserDefaults resetStandardUserDefaults];
     //self.userDefaults = [NSUserDefaults standardUserDefaults];
     
-    
     //create NSUserDefault keys
     time_t t;
     srand((unsigned) time(&t)); //seed the rand with the time
     
-    int minor = rand();
+    int randomMinor = rand() % 65535;
     
-    self.piMajor = 2; // piBeacon convention is iOS devices are Major = 2;//major;
-    self.piMinor = minor;
+    self.piMajor = beaconMajor; // piBeacon convention is iOS devices are Major = 2;//major;
+    self.piMinor = randomMinor;
     self.piUUID = beaconUUID;
     self.piRegionIdentifier = beaconRegionId;
     
@@ -81,6 +80,41 @@
         NSLog(@"applicationDidFinishLaunching: Error reading config file.");
     }
     */
+    
+}
+
+
+#pragma mark - Engagment
+- (ModelEngagement *) engagementFactory: (NSString*) beaconProximityUUID
+{
+    ModelEngagement *engagement = [[ModelEngagement alloc] init];
+    
+    engagement.startTime = [[NSDate alloc] init];
+    engagement.endTime = [[NSDate alloc] init];
+    
+    engagement.iBeaconProximityUUID = beaconProximityUUID;
+    engagement.iBeaconRegionIdentifier = self.piRegionIdentifier;
+    engagement.bleType = BLE_TYPE_IBEACON;
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:notification_NewEngagement object:engagement];
+    
+    return engagement;
+}//end engagementFactory
+
+- (void) startEngagement
+{
+    //[self.engagementFactory
+    //ModelEngagement *engagement = [self engagementFactory:self.piBeacon.piUUID];
+    //engagement.iBeaconRegionIdentifier = region.identifier;
+    
+    //engagement.iBeaconProximityMajor = region.major;
+    //engagement.iBeaconProximityMinor = region.minor;
+    //engagement.bleType =
+    
+}
+
+- (void) endEngagement
+{
     
 }
 

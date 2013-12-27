@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ModelEngagement.h"
+#import "piBeaconDetailViewController.h"
 
 @interface piBeacon : NSObject
 

@@ -39,8 +39,9 @@ var nearestUser = {
 var pageIndex = 0;
 var dashBoards = [];
 dashBoards.push({url:"dashboard-location", pageRefreshTime:20 });
-dashBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
+//dashBoards.push({url:"dashboard-admin", pageRefreshTime:20 });
 dashBoards.push({url:"dashboard-status", pageRefreshTime:20 });
+//dashBoards.push({url:"piBeacon-status", pageRefreshTime:20 });
 
 // ++++++++++++++++++++++++++++++++++++++++
 //  url page routes
@@ -85,7 +86,7 @@ function admin(req, res){
 
 function statusremote(req, res){
   updateIPV4Interfaces();
-  res.render('dashboard-status-remote', { title: 'dashboard-status-remote', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
+  res.render('piBeacon-status', { title: 'piBeacon-status', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
 }//end status
 
 function status(req, res){

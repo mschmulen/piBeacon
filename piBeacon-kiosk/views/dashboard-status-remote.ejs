@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css"/>
-  
+    
     <script src="lib/d3/d3.v3.js"></script>
   	<script src="lib/sockjs/sockjs-0.3.js"></script>
   	<script src="lib/angular/angular.js"></script>
@@ -110,14 +110,16 @@
   <div class="header"> Bluetooth Low Energy Engagement Status  </div>
     
   <div class="row show-grid4">
-    <div class="span4" >RSSI Filter Average<div class="rssi-filter-average"></div></div>
     <div class="span4" >RSSI Filter None<div class="rssi-filter-none"></div></div>
+    <!-- 
+    <div class="span4" >RSSI Filter Average<div class="rssi-filter-average"></div></div>
     <div class="span4" >RSSI Filter State<div class="rssi-filter-state"></div></div>
+    -->
   </div>
     
-    <div class="footer"> - </div>
+  <div class="footer"> - </div>
     
-     <script>
+  <script>
     
       //FilterChart
       var chartWidth = 235;
@@ -142,37 +144,8 @@
     var line = d3.svg.line()
         .x(function(d, i) { return x(i); })
         .y(function(d, i) { return y(d); });
-
-    var svgAverage = d3.selectAll(".rssi-filter-average").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    svgAverage.append("defs").append("clipPath")
-        .attr("id", "clip")
-        .append("rect")
-        .attr("width", width)
-        .attr("height", height);
-
-    svgAverage.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + y(0) + ")")
-        .call(d3.svg.axis().scale(x).orient("bottom"));
-
-    svgAverage.append("g")
-        .attr("class", "y axis")
-        .call(d3.svg.axis().scale(y).orient("left"));
-
-    var pathAverage = svgAverage.append("g")
-        .attr("clip-path", "url(#clip)")
-      .append("path")
-        .datum(data)
-        .attr("class", "line")
-        .attr("d", line);
-     
-     
-      var svgNone = d3.selectAll(".rssi-filter-none").append("svg")
+    
+    var svgNone = d3.selectAll(".rssi-filter-none").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -199,50 +172,17 @@
             .datum(data)
             .attr("class", "line")
             .attr("d", line);
-         
-     
-     
-            var svgState = d3.selectAll(".rssi-filter-state").append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-              svgState.append("defs").append("clipPath")
-                  .attr("id", "clip")
-                  .append("rect")
-                  .attr("width", width)
-                  .attr("height", height);
-
-              svgState.append("g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(0," + y(0) + ")")
-                  .call(d3.svg.axis().scale(x).orient("bottom"));
-
-              svgState.append("g")
-                  .attr("class", "y axis")
-                  .call(d3.svg.axis().scale(y).orient("left"));
-
-              var pathState = svgState.append("g")
-                  .attr("clip-path", "url(#clip)")
-                .append("path")
-                  .datum(data)
-                  .attr("class", "line")
-                  .attr("d", line);
-               
-                   
-         
-         
-
+    
+    
     tick();
-
+    
     function tick() {
-   
+      
       // push a new data point onto the back
       data.push(random());
-   
+      
       // redraw the line, and slide it to the left
-      pathAverage
+      pathNone
           .attr("d", line)
           .attr("transform", null)
         .transition()
@@ -255,54 +195,22 @@
       data.shift();
     }//end tick
     
-    var sockAverage = new SockJS('http://192.168.2.2:9999/chat');
-    var sockNone = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
-    var sockState = new SockJS('http://192.168.2.2:9999/bleRSSIRaw');
+    //var sockAverage = new SockJS('http://192.168.2.2:9999/chat');
     
-    function CtrlRSSIFilterAverage($scope) {
-     
-        $scope.messages = [];
-     
-        sockAverage.onmessage = function(e) {
-       
-          // push a new data point onto the back
-          var rssiValue = parseFloat(e.data);
-          console.log( rssiValue );
-          //rssiValue = random();
-       
-          data.push(rssiValue);
-       
-          // redraw the line, and slide it to the left
-          pathAverage
-              .attr("d", line)
-              .attr("transform", null)
-            .transition()
-              .duration(500)
-              .ease("linear")
-              .attr("transform", "translate(" + x(-1) + ",0)")
-              .each("end", tick);
-       
-          // pop the old data point off the front
-          data.shift();
-        };
-     
-    }//end CtrlRSSIFilterAverage
- 
- 
- 
+    var sockpiBeaconUUIDRSSIRawServer = new SockJS('http://192.168.2.2:9999/piBeaconUUIDRSSIRawServer');
     function CtrlRSSIFilterNone($scope) {
-     
-        $scope.messages = [];
-     
-        sockNone.onmessage = function(e) {
        
+        $scope.messages = [];
+        
+        sockpiBeaconUUIDRSSIRawServer.onmessage = function(e) {
+         
           // push a new data point onto the back
           var rssiValue = parseFloat(e.data);
           console.log( rssiValue );
           //rssiValue = random();
-       
+          
           data.push(rssiValue);
-       
+          
           // redraw the line, and slide it to the left
           pathNone
               .attr("d", line)
@@ -318,42 +226,15 @@
         };
      
     }//end CtrlRSSIFilterNone
- 
- 
-    function CtrlRSSIFilterState($scope) {
-     
-        $scope.messages = [];
-     
-        sockState.onmessage = function(e) {
-       
-          // push a new data point onto the back
-          var rssiValue = parseFloat(e.data);
-          console.log( rssiValue );
-          //rssiValue = random();
-       
-          data.push(rssiValue);
-       
-          // redraw the line, and slide it to the left
-          pathState
-              .attr("d", line)
-              .attr("transform", null)
-            .transition()
-              .duration(500)
-              .ease("linear")
-              .attr("transform", "translate(" + x(-1) + ",0)")
-              .each("end", tick);
-       
-          // pop the old data point off the front
-          data.shift();
-        };
-     
-    }//end CtrlRSSIFilterState
     
     </script>
-    
+      <div ng-controller="CtrlRSSIFilterNone"> </div>      
+      
+    <!-- 
+
     <div ng-controller="CtrlRSSIFilterAverage"> </div>  
-    <div ng-controller="CtrlRSSIFilterNone"> </div>  
     <div ng-controller="CtrlRSSIFilterState"> </div>  
+    -->
     
      <!-- App Resources -->
      <script src="js/app.js"></script>

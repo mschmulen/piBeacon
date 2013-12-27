@@ -8,8 +8,6 @@
 
 #import "SecondViewController.h"
 #import "piBeacon.h"
-#import "ModelEngagement.h"
-
 
 // TableView Cell Identifier
 static NSString * const kCellIdentifier = @"iBeaconCell";
@@ -30,7 +28,6 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
-
 @end
 
 @implementation SecondViewController
@@ -45,33 +42,12 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
 {
     if (! _piBeacon ) {
         _piBeacon = [[piBeacon alloc] init];
-        [_piBeacon initWithConfig:@"87209302-C7F2-4D56-B1D1-14EADD0CE41F" beaconRegionId:@"org.pibeacon.office" beaconMajor:2 beaconMinor:2];
+        [_piBeacon initWithConfig:@"87209302-C7F2-4D56-B1D1-14EADD0CE41F" beaconRegionId:@"org.pibeacon" beaconMajor:0 beaconMinor:2];
     }
     return _piBeacon;
 }
 
 
-#pragma mark - Engagment
-- (ModelEngagement *) engagementFactory: (NSString*) beaconProximityUUID
-{
-    ModelEngagement *engagement = [[ModelEngagement alloc] init];
-    
-    engagement.startTime = [[NSDate alloc] init];
-    engagement.endTime = [[NSDate alloc] init];
-    
-    engagement.iBeaconProximityUUID = beaconProximityUUID;
-    engagement.iBeaconRegionIdentifier = self.piBeacon.piRegionIdentifier;
-    engagement.bleType = BLE_TYPE_IBEACON;
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:notification_NewEngagement object:engagement];
-    
-    return engagement;
-}
-
-- (void) endEngagement
-{
-    
-}
 
 #pragma mark - Beacon ranging
 - (void)createBeaconRegion
@@ -149,18 +125,17 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {
+    
     if ([beacons count] == 0) {
         NSLog(@"No beacons found nearby.");
     } else {
         NSLog(@"Found beacons! %@", region.identifier);
     }
     
-    //[self.engagementFactory
-    ModelEngagement *engagement = [self engagementFactory:self.piBeacon.piUUID];
-    engagement.iBeaconRegionIdentifier = region.identifier;
-    //engagement.iBeaconProximityMajor = region.major;
-    //engagement.iBeaconProximityMinor = region.minor;
-    //engagement.bleType =
+    //MAS Todo startEngagement
+    // ModelEngagement *engagement = [self engagementFactory:self.piBeacon.piUUID];
+    // engagement.iBeaconRegionIdentifier = region.identifier;
+    
     self.tableData = beacons;
     [self.myTableView reloadData];
 }
@@ -276,6 +251,23 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+	piBeaconDetailViewController *detailController = [[piBeaconDetailViewController alloc] init];
+    detailController.model = [self.tableData objectAtIndex:indexPath.row];
+    [self.tabBarController presentViewController: detailController animated:YES completion:nil];
+    
+}
+
+-(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //myCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+	//cell.customHelpButton.hidden = true;
+    
+    piBeaconDetailViewController *detailController = [[piBeaconDetailViewController alloc] init];
+    detailController.model = [self.tableData objectAtIndex:indexPath.row];
+    [self.tabBarController presentViewController: detailController animated:YES completion:nil];
+}
 
 /*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
