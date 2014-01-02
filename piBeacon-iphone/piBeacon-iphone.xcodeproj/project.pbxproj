@@ -30,6 +30,8 @@
 		AEB0E7FA186CD9E8005475E0 /* piBeaconDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEB0E7F8186CD9E8005475E0 /* piBeaconDetailViewController.xib */; };
 		AEB0E7FE186CDAE9005475E0 /* piBeaconUserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E7FC186CDAE9005475E0 /* piBeaconUserDetailViewController.m */; };
 		AEB0E7FF186CDAE9005475E0 /* piBeaconUserDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEB0E7FD186CDAE9005475E0 /* piBeaconUserDetailViewController.xib */; };
+		AEB0E8031870B8FE005475E0 /* piBeaconProximityAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0E8011870B8FE005475E0 /* piBeaconProximityAlertViewController.m */; };
+		AEB0E8041870B8FE005475E0 /* piBeaconProximityAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEB0E8021870B8FE005475E0 /* piBeaconProximityAlertViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,9 @@
 		AEB0E7FB186CDAE9005475E0 /* piBeaconUserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piBeaconUserDetailViewController.h; sourceTree = "<group>"; };
 		AEB0E7FC186CDAE9005475E0 /* piBeaconUserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = piBeaconUserDetailViewController.m; sourceTree = "<group>"; };
 		AEB0E7FD186CDAE9005475E0 /* piBeaconUserDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = piBeaconUserDetailViewController.xib; sourceTree = "<group>"; };
+		AEB0E8001870B8FE005475E0 /* piBeaconProximityAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piBeaconProximityAlertViewController.h; sourceTree = "<group>"; };
+		AEB0E8011870B8FE005475E0 /* piBeaconProximityAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = piBeaconProximityAlertViewController.m; sourceTree = "<group>"; };
+		AEB0E8021870B8FE005475E0 /* piBeaconProximityAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = piBeaconProximityAlertViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +200,9 @@
 				AEB0E7FB186CDAE9005475E0 /* piBeaconUserDetailViewController.h */,
 				AEB0E7FC186CDAE9005475E0 /* piBeaconUserDetailViewController.m */,
 				AEB0E7FD186CDAE9005475E0 /* piBeaconUserDetailViewController.xib */,
+				AEB0E8001870B8FE005475E0 /* piBeaconProximityAlertViewController.h */,
+				AEB0E8011870B8FE005475E0 /* piBeaconProximityAlertViewController.m */,
+				AEB0E8021870B8FE005475E0 /* piBeaconProximityAlertViewController.xib */,
 			);
 			path = piBeacon;
 			sourceTree = "<group>";
@@ -246,6 +254,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Matt Schmulen";
 				TargetAttributes = {
+					AEB0E7AC186A7A83005475E0 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					AEB0E7D0186A7A83005475E0 = {
 						TestTargetID = AEB0E7AC186A7A83005475E0;
 					};
@@ -275,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEB0E8041870B8FE005475E0 /* piBeaconProximityAlertViewController.xib in Resources */,
 				AEB0E7FA186CD9E8005475E0 /* piBeaconDetailViewController.xib in Resources */,
 				AEB0E7CC186A7A83005475E0 /* Images.xcassets in Resources */,
 				AEB0E7BB186A7A83005475E0 /* InfoPlist.strings in Resources */,
@@ -304,6 +320,7 @@
 				AEB0E7C7186A7A83005475E0 /* FirstViewController.m in Sources */,
 				AEB0E7F9186CD9E8005475E0 /* piBeaconDetailViewController.m in Sources */,
 				AEB0E7EF186C9324005475E0 /* ModelEngagement.m in Sources */,
+				AEB0E8031870B8FE005475E0 /* piBeaconProximityAlertViewController.m in Sources */,
 				AEB0E7F2186C94B3005475E0 /* piBeacon.m in Sources */,
 				AEB0E7BD186A7A83005475E0 /* main.m in Sources */,
 			);
@@ -514,6 +531,7 @@
 				AEB0E7E4186A7A83005475E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AEB0E7E5186A7A83005475E0 /* Build configuration list for PBXNativeTarget "piBeacon-iphoneTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +540,7 @@
 				AEB0E7E7186A7A83005475E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

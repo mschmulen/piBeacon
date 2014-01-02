@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "piBeacon.h"
 
 @interface FirstViewController : UIViewController
 

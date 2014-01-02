@@ -16,3 +16,11 @@ make
 sudo make install
 #rm -rf node-v0.10.22.tar.gz
 
+
+#wget http://nodejs.org/dist/v0.8.22/node-v0.8.22-linux-arm-pi.tar.gz
+#sudo tar -C /opt/node --strip=1 -zxvf node-v0.8.22-linux-arm-pi.tar.gz
+#sudo ln -s -f /opt/node/bin/node /usr/bin/node
+#sudo ln -s -f /opt/node/bin/npm /usr/bin/npm
+
+
+

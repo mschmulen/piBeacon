@@ -118,6 +118,13 @@
     
 }
 
++ (void) simulateProximityEvent
+{
+    NSLog(@"Simulate Proximity Event");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_NewEngagement object:nil];
+}
+
 
 
 @end

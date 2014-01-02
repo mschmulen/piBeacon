@@ -40,6 +40,13 @@ sudo apt-get install redis-server -y
 #AFP (Apple Filing Protocol) http://netatalk.sourceforge.net/
 #Apple’s Zero Configuration protocol, Bonjour
 sudo apt-get install netatalk -y
+#sudo apt-get install libnss-mdns avahi-utils
+
+#configure alternative hostname
+#hostname pibeacon1
+#ssh raspberrypi.local
+#afp://pi@raspberrypi.local
+
 
 #node
 #./nodejs-rpi.sh

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface piBeaconUserDetailViewController : UIViewController
-
+@property NSObject *model;
 @end

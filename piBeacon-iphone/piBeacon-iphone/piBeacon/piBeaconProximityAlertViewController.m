@@ -1,24 +1,19 @@
 //
-//  piBeaconUserDetailViewController.m
+//  piBeaconProximityAlertViewController.m
 //  piBeacon-iphone
 //
-//  Created by Matt Schmulen on 12/26/13.
+//  Created by Matt Schmulen on 12/29/13.
 //  Copyright (c) 2013 Matt Schmulen. All rights reserved.
 //
 
-#import "piBeaconUserDetailViewController.h"
+#import "piBeaconProximityAlertViewController.h"
 
-@interface piBeaconUserDetailViewController ()
+@interface piBeaconProximityAlertViewController ()
 
 @end
 
-@implementation piBeaconUserDetailViewController
-
-@synthesize model;
-
-
+@implementation piBeaconProximityAlertViewController
 - (IBAction)actionClose:(id)sender {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
