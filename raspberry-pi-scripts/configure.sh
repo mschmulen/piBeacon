@@ -52,11 +52,9 @@ sudo cp raspberry-pi-scripts/configs/autostart /etc/xdg/lxsession/LXDE
 #/etc/init.d/iBeaconAdvertise start
 
 #  ---------------------------------------------------------------------------
-#  Configure piBeacon
+#  Restart the machine
 #  ---------------------------------------------------------------------------
-sleep 20s
-
+#sleep 10s
 #echo "Navigate to http://$(hostname).local$PORT_USED to use the piBeacon dashboard"
-
 echo "restart"
-#sudo reboot
+sudo reboot

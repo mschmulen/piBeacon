@@ -9,9 +9,10 @@
 #unclutter -display :0 -noevents -grab
 
 #start the piBeacon node service
-#/etc/init.d/piBeacon start
+/etc/init.d/piBeacon start
+
 #start the iBeaconAdvertise service
-#/etc/init.d/iBeaconAdvertise start
+/etc/init.d/iBeaconAdvertise start
 
 sleep 20s
 
