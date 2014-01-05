@@ -21,7 +21,7 @@ USER=pi
 OUT=/home/pi/nodejs.log
 
 DIR=/usr/pi/piBeacon/
-DAEMON=$DIR/commands/piBeacon
+DAEMON=$DIR/raspberry-pi-scripts/commands/piBeacon
 DAEMON_NAME=piBeacon
 
 DAEMON_USER=root

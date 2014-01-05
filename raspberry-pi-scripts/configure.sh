@@ -19,14 +19,14 @@ echo "update lightdm.conf to prevent screen blanking"
 #Prevent screen blanking, this can be done manually as well
 	#edit /etc/lightdm/lightdm.conf
 	#add a line “xserver-command=X -s 0 dpms” under [SeatDefaults]
-sudo cp raspberry-pi-scripts/lightdm.conf /etc/lightdm
+sudo cp raspberry-pi-scripts/configs/lightdm.conf /etc/lightdm
 
 #  ---------------------------------------------------------------------------
 #  Configure LXDE autostart
 #  ---------------------------------------------------------------------------
 cd ~/piBeacon
 echo "update LXDE autostart script"
-sudo cp raspberry-pi-scripts/autostart /etc/xdg/lxsession/LXDE
+sudo cp raspberry-pi-scripts/configs/autostart /etc/xdg/lxsession/LXDE
 
 #npm install the piBeacon-kiosk
   #cd ~/piBeacon/piBeacon-kiosk

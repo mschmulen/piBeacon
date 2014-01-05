@@ -1,0 +1,67 @@
+#! /bin/sh
+# /etc/init.d/iBeaconAdvertise
+
+### BEGIN INIT INFO
+# Provides: iBeaconAdvertise
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d. 
+# 									test with  /etc/init.d/iBeaconAdvertise start
+### END INIT INFO
+
+# If you want a command to always run, put it here
+USER=pi
+DIR=/usr/pi/piBeacon/
+DAEMON=$DIR/raspberry-pi-scripts/commands/iBeaconAdvertise
+DAEMON_NAME=iBeaconAdvertise
+DAEMON_USER=root
+PIDFILE=/var/run/$DAEMON_NAME.pid
+
+#BLE Configurations
+# All values must be in hex form separated by spaces between every two hex digits
+
+#cd /home/pi/piBeacon/raspberry-pi-scripts/configs
+#. ./hci.conf
+
+BLUETOOTH_DEVICE=hci0
+# iBeacon broadcasting Profile UUID E2C56DB5-DFFB-48D2-B060-D0F5A71096E0
+UUID="e2 c5 6d b5 df fb 48 d2 b0 60 d0 f5 a7 10 96 e0"
+MAJOR="00 01"
+MINOR="00 01"
+POWER="c9"
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+
+start)
+	echo "start HCI iBeacon configuration"
+	echo " UUID: $UUID"
+	echo " Major:  $MAJOR Minor: $MINOR"
+	
+	sudo hciconfig $BLUETOOTH_DEVICE up
+	sudo hciconfig $BLUETOOTH_DEVICE noleadv
+	sudo hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER 00 00 00 00 00 00 00 00 00 00 00 00 00
+	sudo hciconfig $BLUETOOTH_DEVICE leadv 0
+	echo "Complete"
+  	sleep 20s
+	#echo "starting node: $NODE $SERVER_JS_FILE"
+	;;
+	
+stop)
+	echo "stop HCI iBeacon configuration"
+	echo " UUID: $UUID"
+	echo " Major:  $MAJOR Minor: $MINOR"
+	
+	sudo hciconfig $BLUETOOTH_DEVICE noleadv
+	#killall $NODE
+	;;
+
+*)
+	echo "usage: $0 (start|stop)"
+esac
+
+exit 0
