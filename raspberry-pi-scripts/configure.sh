@@ -5,11 +5,22 @@
 #  ---------------------------------------------------------------------------
 cd ~/piBeacon
 echo "init.d - piBeacon Commands"
-#sudo update-rc.d -f piBoard remove
+#sudo update-rc.d -f piBeacon remove
 sudo cp raspberry-pi-scripts/commands/piBeacon /etc/init.d/
 sudo chmod 755 /etc/init.d/piBeacon
 sudo update-rc.d piBeacon defaults
 # test with /etc/init.d/piBeacon start
+
+#  ---------------------------------------------------------------------------
+#  iBeaconAdvertise
+#  ---------------------------------------------------------------------------
+cd ~/piBeacon
+echo "init.d - piBeacon Commands"
+#sudo update-rc.d -f iBeaconAdvertise remove
+sudo cp raspberry-pi-scripts/commands/iBeaconAdvertise /etc/init.d/
+sudo chmod 755 /etc/init.d/iBeaconAdvertise
+sudo update-rc.d iBeaconAdvertise defaults
+# test with /etc/init.d/iBeaconAdvertise start
 
 #  ---------------------------------------------------------------------------
 #  Configure XServer as a Kiosk lightdm.conf
@@ -35,9 +46,10 @@ sudo cp raspberry-pi-scripts/configs/autostart /etc/xdg/lxsession/LXDE
   #sudo sudo npm install
 
 #  ---------------------------------------------------------------------------
-#  Start the node servers
+#  Start the services
 #  ---------------------------------------------------------------------------
 #/etc/init.d/piBeacon start
+#/etc/init.d/iBeaconAdvertise start
 
 #  ---------------------------------------------------------------------------
 #  Configure piBeacon
