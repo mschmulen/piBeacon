@@ -15,7 +15,7 @@ sudo update-rc.d piBeacon defaults
 #  iBeaconAdvertise
 #  ---------------------------------------------------------------------------
 cd ~/piBeacon
-echo "init.d - piBeacon Commands"
+echo "init.d - iBeaconAdvertise Commands"
 #sudo update-rc.d -f iBeaconAdvertise remove
 sudo cp raspberry-pi-scripts/commands/iBeaconAdvertise /etc/init.d/
 sudo chmod 755 /etc/init.d/iBeaconAdvertise

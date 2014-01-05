@@ -35,24 +35,24 @@ BLUETOOTH_DEVICE=hci0
 # POWER // -128 - 127 (measured RSSI at 1 meter) # The 2's complement of the calibrated Tx Power
 
 UUID="87 20 93 02 C7 F2 4D 56 B1 D1 14 EA DD 0C E4 1F"
-MAJOR="00 01"
-MINOR="00 01"
-POWER="c9"
+MAJOR="00 00"
+MINOR="00 00"
+POWER="C9"
 
 # Carry out specific functions when asked to by the system
 case "$1" in
 
 start)
-	echo "start HCI iBeacon configuration"
+	echo "start iBeaconAdvertise configuration"
 	echo " UUID: $UUID"
 	echo " Major:  $MAJOR Minor: $MINOR"
 	
 	sudo hciconfig $BLUETOOTH_DEVICE up
-	sudo hciconfig $BLUETOOTH_DEVICE noleadv
-	sudo hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER 00 00 00 00 00 00 00 00 00 00 00 00 00
-	sudo hciconfig $BLUETOOTH_DEVICE leadv 0
-	echo "Complete"
-  	sleep 20s
+	sudo hciconfig $BLUETOOTH_DEVICE leadv3
+	sudo hcitool -i $BLUETOOTH_DEVICE cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER 00
+	#sudo hciconfig $BLUETOOTH_DEVICE leadv 0
+	echo "iBeaconAdvertise running"
+  	#sleep 20s
 	#echo "starting node: $NODE $SERVER_JS_FILE"
 	;;
 	
@@ -61,8 +61,8 @@ stop)
 	echo " UUID: $UUID"
 	echo " Major:  $MAJOR Minor: $MINOR"
 	
-	sudo hciconfig $BLUETOOTH_DEVICE noleadv
-	#killall $NODE
+	sudo hciconfig $BLUETOOTH_DEVICE down
+	echo "iBeaconAdvertise stopped"
 	;;
 
 *)
