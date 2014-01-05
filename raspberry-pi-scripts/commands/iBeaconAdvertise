@@ -28,8 +28,13 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 #. ./hci.conf
 
 BLUETOOTH_DEVICE=hci0
-# iBeacon broadcasting Profile UUID E2C56DB5-DFFB-48D2-B060-D0F5A71096E0
-UUID="e2 c5 6d b5 df fb 48 d2 b0 60 d0 f5 a7 10 96 e0"
+# iBeacon broadcasting Profile UUID 87209302-C7F2-4D56-B1D1-14EADD0CE41F 
+# UUID // 
+# MAJOR // 0 - 65535
+# MAJOR // 0 - 65535
+# POWER // -128 - 127 (measured RSSI at 1 meter) # The 2's complement of the calibrated Tx Power
+
+UUID="87 20 93 02 C7 F2 4D 56 B1 D1 14 EA DD 0C E4 1F"
 MAJOR="00 01"
 MINOR="00 01"
 POWER="c9"

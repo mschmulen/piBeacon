@@ -42,7 +42,7 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
 {
     if (! _piBeacon ) {
         _piBeacon = [[piBeacon alloc] init];
-        [_piBeacon initWithConfig:@"87209302-C7F2-4D56-B1D1-14EADD0CE41F" beaconRegionId:@"org.pibeacon" beaconMajor:0 beaconMinor:2];
+        [_piBeacon initWithConfig:@"87209302-C7F2-4D56-B1D1-14EADD0CE41F" beaconRegionId:@"org.pibeacon" beaconMajor:1 beaconMinor:1];
     }
     return _piBeacon;
 }
