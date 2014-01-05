@@ -72,10 +72,8 @@ sudo npm install forever -g
 #afp://pi@raspberrypi.local
 
 
-
-
 #  ---------------------------------------------------------------------------
-#  Final Cofniguration
+#  Final Configuration
 #  ---------------------------------------------------------------------------
 echo "provision.sh is done"
 echo "cloning the piBeacon repo https://github.com/mschmulen/pibeacon to ~/piBeacon"
