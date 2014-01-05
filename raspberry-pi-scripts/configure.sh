@@ -72,7 +72,9 @@ echo "$OFFLINE"
 
 # ------------------------
 
-
+#  ---------------------------------------------------------------------------
+#  Configure piBeacon
+#  ---------------------------------------------------------------------------
 cd ~/piBeacon
 echo "init.d - piBeacon Commands"
 #sudo update-rc.d -f piBoard remove
@@ -81,12 +83,21 @@ sudo chmod 755 /etc/init.d/piBeacon
 sudo update-rc.d piBeacon defaults
 # test with /etc/init.d/piBeacon start
 
-#additional configure XServer as a Kiosk, Prevent screen blanking
-		#edit /etc/lightdm/lightdm.conf
-		#add a line “xserver-command=X -s 0 dpms” under [SeatDefaults]
+
+#  ---------------------------------------------------------------------------
+#  Configure XServer as a Kiosk lightdm.conf
+#  ---------------------------------------------------------------------------
+cd ~/piBeacon
 echo "update lightdm.conf to prevent screen blanking"
+#Prevent screen blanking, this can be done manually as well
+	#edit /etc/lightdm/lightdm.conf
+	#add a line “xserver-command=X -s 0 dpms” under [SeatDefaults]
 sudo cp raspberry-pi-scripts/lightdm.conf /etc/lightdm
 
+#  ---------------------------------------------------------------------------
+#  Configure LXDE autostart
+#  ---------------------------------------------------------------------------
+cd ~/piBeacon
 echo "update LXDE autostart script"
 sudo cp raspberry-pi-scripts/autostart /etc/xdg/lxsession/LXDE
 
@@ -96,13 +107,17 @@ sudo cp raspberry-pi-scripts/autostart /etc/xdg/lxsession/LXDE
   #npm update
   #sudo sudo npm install
 
-#start the node-angular-display-server
-/etc/init.d/piBeacon start
+#  ---------------------------------------------------------------------------
+#  Start the node servers
+#  ---------------------------------------------------------------------------
+#/etc/init.d/piBeacon start
 
+#  ---------------------------------------------------------------------------
+#  Configure piBeacon
+#  ---------------------------------------------------------------------------
 sleep 20s
 
 #echo "Navigate to http://$(hostname).local$PORT_USED to use the piBeacon dashboard"
 
-#echo "restart"
+echo "restart"
 #sudo reboot
-
