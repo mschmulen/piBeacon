@@ -127,9 +127,9 @@ static NSString * const kCellIdentifier = @"iBeaconCell";
                inRegion:(CLBeaconRegion *)region {
     
     if ([beacons count] == 0) {
-        NSLog(@"No beacons found nearby.");
+        //NSLog(@"No beacons found nearby.");
     } else {
-        NSLog(@"Found beacons! %@", region.identifier);
+        //NSLog(@"Found beacons! %@", region.identifier);
     }
     
     //MAS Todo startEngagement

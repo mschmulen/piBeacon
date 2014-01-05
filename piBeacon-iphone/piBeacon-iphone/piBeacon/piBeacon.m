@@ -41,8 +41,7 @@
     NSLog(@"piBeacon region: %@  ", self.piRegionIdentifier);
     NSLog(@"piBeacon uuid:%@", self.piUUID );
     NSLog(@"major: %ld  minor: %ld ", (long)self.piMajor, (long)self.piMinor );
-
-   
+    
     /*
     if(self.userDefaults)
     {
