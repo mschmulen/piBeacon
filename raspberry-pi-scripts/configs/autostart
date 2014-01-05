@@ -17,4 +17,4 @@
 sleep 20s
 
 #@chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state http://127.0.0.1:3000/bleStats.html
-#@chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state http://127.0.0.1:3000/
+@chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state http://127.0.0.1:3000/
