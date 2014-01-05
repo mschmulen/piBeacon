@@ -65,13 +65,6 @@ rm -rf node-v0.8.22-linux-arm-pi.tar.gz
 sudo npm install forever -g
 
 #  ---------------------------------------------------------------------------
-#  Configure XServer as a Kiosk
-#  ---------------------------------------------------------------------------
-#Prevent screen blanking
-	#edit /etc/lightdm/lightdm.conf
-	#add a line “xserver-command=X -s 0 dpms” under [SeatDefaults]
-
-#  ---------------------------------------------------------------------------
 #  Configure alternative hostname
 #  ---------------------------------------------------------------------------
 #hostname pibeacon1
