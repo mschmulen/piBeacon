@@ -12,6 +12,7 @@
 <body>
   
   <script type="text/javascript" src="lib/d3/d3.v3.js"></script>
+	
   <p align="right">
   		<%for (var i = 0; i < iPV4Interfaces.length; i++) { %>
   			 <%= iPV4Interfaces[i].name  %> =  <%= iPV4Interfaces[i].family  %> ,  <%= iPV4Interfaces[i].address  %> 
@@ -25,29 +26,7 @@
   <p> yack yack yack  </p>
   <p> yack yack yack  </p>
   <p> Tracking Infor for this location </p>
-  
-  
-  <section id="main" class="row-fluid">
     
-  <table class="table">
-    <tr>
-    
-    <th>month</th><th>metricA</th><th>metricA</th><th>metricA</th><th>metricA</th><th>metricA</th><th>metricA</th><th>metricA</th><th>metricA</th> 
-    
-    </tr>
-    
-    <tr><td>Jan</td> <td>445</td> <td>179</td> <td>34</td> <td>21</td> <td>7</td> <td>22</td> <td>22</td> <td>7</td></tr>
-    <tr><td>Feb</td> <td>4443</td> <td>11</td> <td>35</td> <td>66</td> <td>10</td> <td>6</td> <td>45</td> <td>445</td></tr>
-    <tr><td>March</td> <td>8676</td> <td>459</td> <td>33</td> <td>18</td> <td>12</td> <td>0</td> <td>454</td> <td>45</td></tr>
-  </table>
-    
-  </section>
-	
-  <section id="main" class="row-fluid">
-   <div ng-include="'partials/githubLibuv.html'"></div>
-   <div ng-include="'partials/githubNode.html'"></div>
-  </section>
-  
 	<script src="lib/angular/angular.js"></script>
   <script src="lib/angular/angular-resource.js"></script>
   <script src="lib/angular/angular-sanitize.js"></script>

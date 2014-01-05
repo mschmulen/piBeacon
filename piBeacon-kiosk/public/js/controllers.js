@@ -36,34 +36,6 @@ function GenericMetricsController($scope, SomeMetrics) {
 	//$scope.events = SomeMetrics.query();
 }
 
-function GithubNodeController($scope, GithubNode) {
-  $scope.events = GithubNode.query();
-}
-
-function GithubLibuvController($scope, GithubLibUV) {
-  $scope.events = GithubLibUV.query();
-}
-
-function GithubStrongLoopController($scope, GithubStrongLoop) {
-  $scope.events = GithubStrongLoop.query();
-}
-
-function GithubStrongLoopCommunityController($scope, GithubStrongLoopCommunity) {
-  $scope.events = GithubStrongLoopCommunity.query();
-}
-
-function TwitterController($scope, Twitter) {
-  Twitter.search({}, function(data) {
-    $scope.tweets = data.results;
-  });
-}
-
-function StackOverflowController($scope, StackOverflow) {
-  StackOverflow.search({}, function(data) {
-    $scope.questions = data.items;
-  });
-}
-
 function RedditController($scope, Reddit) {
   Reddit.read({}, function(data) {
     $scope.posts = data.data.children.map(function(e) {
@@ -71,3 +43,4 @@ function RedditController($scope, Reddit) {
     });
   });
 }
+
