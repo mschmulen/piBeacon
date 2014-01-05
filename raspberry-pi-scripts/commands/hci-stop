@@ -1,0 +1,6 @@
+#!/bin/sh
+cd /home/pi/piBeacon/raspberry-pi-scripts
+. ./hci.conf
+echo "Disabling virtual iBeacon..."
+sudo hciconfig $BLUETOOTH_DEVICE noleadv
+echo "Complete"
