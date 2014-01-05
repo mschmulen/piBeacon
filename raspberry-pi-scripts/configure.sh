@@ -1,5 +1,5 @@
 #!/bin/sh
-#curl https://raw.github.com/mschmulen/pibacon/scripts/provision.sh | sudo sh
+#curl https://raw.github.com/mschmulen/pibeacon/raspberry-pi-scripts/provision.sh | sudo sh
 
 # ------------------------
 
