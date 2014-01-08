@@ -18,6 +18,8 @@
 		C9C4FED0187A01640061797D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C4FEAF187A01630061797D /* Cocoa.framework */; };
 		C9C4FED8187A01640061797D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9C4FED6187A01640061797D /* InfoPlist.strings */; };
 		C9C4FEDA187A01640061797D /* piBeacon_OSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C4FED9187A01640061797D /* piBeacon_OSXTests.m */; };
+		C9C4FEE5187A04B20061797D /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C4FEE3187A04B20061797D /* IOBluetooth.framework */; };
+		C9C4FEE6187A04B20061797D /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C4FEE4187A04B20061797D /* IOBluetoothUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		C9C4FED5187A01640061797D /* piBeacon-OSXTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "piBeacon-OSXTests-Info.plist"; sourceTree = "<group>"; };
 		C9C4FED7187A01640061797D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9C4FED9187A01640061797D /* piBeacon_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = piBeacon_OSXTests.m; sourceTree = "<group>"; };
+		C9C4FEE3187A04B20061797D /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		C9C4FEE4187A04B20061797D /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9C4FEE5187A04B20061797D /* IOBluetooth.framework in Frameworks */,
+				C9C4FEE6187A04B20061797D /* IOBluetoothUI.framework in Frameworks */,
 				C9C4FEB0187A01630061797D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +101,8 @@
 		C9C4FEAE187A01630061797D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9C4FEE3187A04B20061797D /* IOBluetooth.framework */,
+				C9C4FEE4187A04B20061797D /* IOBluetoothUI.framework */,
 				C9C4FEAF187A01630061797D /* Cocoa.framework */,
 				C9C4FECE187A01640061797D /* XCTest.framework */,
 				C9C4FEB1187A01630061797D /* Other Frameworks */,
@@ -464,6 +472,7 @@
 				C9C4FEDF187A01640061797D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9C4FEE0187A01640061797D /* Build configuration list for PBXNativeTarget "piBeacon-OSXTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +481,7 @@
 				C9C4FEE2187A01640061797D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

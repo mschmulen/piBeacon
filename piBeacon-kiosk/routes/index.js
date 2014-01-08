@@ -70,11 +70,6 @@ function location(req, res){
   res.render('dashboard-location', { title: 'dashboard-location', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
 }//end 
 
-function partner(req, res){
-  updateIPV4Interfaces();
-  res.render('dashboard-partner', { title: 'dashboard-partner', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
-}//end
-
 function admin(req, res){
 	updateIPV4Interfaces();
   res.render('dashboard-admin', { title: 'dashboard-admin', currentUser:nearestUser, iPV4Interfaces:iPV4Interfaces, pageRefreshTime:100 });
