@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en" ng-app="piboard.dashboard">
+<head>
+  <% if (pageRefreshTime) { %>
+      <meta http-equiv="refresh" content="<%= pageRefreshTime %>">
+	<% } %>
+  <meta charset="utf-8">
+  <title>piBeacon</title>
+	
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
+	
+  <script src="lib/d3/d3.v3.js"></script>
+	<script src="lib/sockjs/sockjs-0.3.js"></script>
+	
+</head>
+<body>
+	
+  <style>
+    
+		.page {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      background-color: lightgray;
+      display: block;
+		}
+	
+		.widget-span1 {
+		  height: 70px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+  
+		.widget-span2 {
+		  height: 140px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+  
+		.widget-span3 {
+		  height: 110px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+  
+		.widget-span4 {
+		  height: 235px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+  
+		.widget-span6 {
+		  height: 470px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+  
+		.widget-span12 {
+		  height: 600px;
+		  background-color: #EEE;
+		  border: 1px solid #DDD;
+		  margin-bottom: 3px;
+		}
+    
+		.header, .footer {
+		  background-color: lightgray;
+		  border: 1px solid lightgray;
+		  height: 36px;
+		  margin-bottom: 18px;
+		}
+    
+    svg {
+      font: 10px sans-serif;
+    }
+    
+    .line {
+      fill: none;
+      stroke: blue;
+      stroke-width: 1.5px;
+    }
+    
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+	</style>
+	
+  
+  <p align="right">
+  		<%for (var i = 0; i < iPV4Interfaces.length; i++) { %>
+  			 <%= iPV4Interfaces[i].name  %> =  <%= iPV4Interfaces[i].family  %> ,  <%= iPV4Interfaces[i].address  %> 
+  		<% } %>
+  </p>
+  
+	<div class="container-narrow">
+  	<div class="header">
+	 		<h3>piBeacon</h3>
+   	</div>
+		
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-sm-6">
+					<h3>iBeacon RaspberryPi dashboard kiosk</h3>
+    			<!-- <p>Mobile App to show you how to connect your mobile app to LoopBack the open mobile backend built on node for building your own private mBaaS. </p> -->
+    			<p style="text-align:left;">①. Scan the QR Code</p></p>
+    			<p style="text-align:left;">②. Install the Mobile App </p>
+					<p style="text-align:left;">③. Personalize </p>
+					<div class="col-sm-5">
+						<img height="180" alt="" src="img/qrcode-app-install.png">
+					</div>
+ 				</div>
+				<div class="col-sm-5">
+					<img height="300" alt="" src="img/hero.png">
+				</div>
+			</div>
+			
+   	</div>
+		
+		<div class="row">
+			
+
+			
+			<!--     -->
+		  <div class="col-sm-4">
+		    <div class="thumbnail">
+		      <div class="caption">
+						<h2 class="sl_green_highlight">iBeacon</h2>
+						<h4>Bluetooth Low Energy (BLE)</h4>
+						<p>① Enable Proximity awareness</p>
+						<p>② Customize users interactions</p>
+						<p>③ Track and analyze engagments</p>
+						<p>④ Interact with the IOT around you</p>
+		      </div>
+		    </div>
+		  </div>
+			
+			<!--     -->
+		  <div class="col-sm-4">
+				<div class="thumbnail">
+				<div class="rssi"></div>
+				</div>
+			</div>
+			
+			<!--     -->
+		  <div class="col-sm-4">
+		    <div class="thumbnail">
+		      
+		      <div class="caption">
+						<h2 class="sl_green_highlight">Raspberry Pi</h2>
+						<h4>Form factor for innovation</h4>
+						<p>① Open Embedded system</p>
+						<p>② Customizable </p>
+						<p>③ Open </p>
+						<p>④ Cost effective </p>
+		      </div>
+		    </div>
+		  </div>
+			
+	</div>
+	
+	<div>
+		<p> </p>
+		<p> </p>
+		<p> </p>
+	</div>
+	<div class="footer">
+			<p><a href="http:www.pibeacon.org" target="_blank"> pibeacon.org</a> 
+ 	</div>
+  
+	
+  <script>
+ 
+  var chartWidth = 320;
+  var chartHeight = 240;
+ 
+  var n = 40,
+      random = d3.random.normal(0, .2),
+      data2 = d3.range(n).map(random),
+      data3 = d3.range(n).map(random),
+      data = d3.range(n).map(random);
+  
+  var margin = {top: 20, right: 20, bottom: 20, left: 40},
+      width = chartWidth - margin.left - margin.right,
+      height = chartHeight - margin.top - margin.bottom;
+ 
+  var x = d3.scale.linear().domain([0, n - 1]).range([0, width]); 
+  var y = d3.scale.linear().domain([-100, 1]).range([height, 0]);
+  
+  var line = d3.svg.line().x(function(d, i) { return x(i); }).y(function(d, i) { return y(d); });
+  var line2 = d3.svg.line().x(function(d, i) { return x(i); }).y(function(d, i) { return y(d); });
+  var line3 = d3.svg.line().x(function(d, i) { return x(i); }).y(function(d, i) { return y(d); });
+  
+  var svg = d3.select(".rssi").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+  svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+    .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+ 
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + y(0) + ")")
+      .call(d3.svg.axis().scale(x).orient("bottom"));
+ 
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(d3.svg.axis().scale(y).orient("left"));
+ 
+  var pathFilterNone = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+
+  var pathFilterAverage = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .datum(data2)
+      .attr("class", "line2")
+      .attr("d", line2);
+  
+  var pathFilterState = svg.append("g")
+      .attr("clip-path", "url(#clip)")
+    .append("path")
+      .datum(data3)
+      .attr("class", "line3")
+      .attr("d", line3);
+      
+  tick();
+  
+  function tick() {
+    
+    // push a new data point onto the back
+    data.push(random());
+    
+    // redraw the line, and slide it to the left
+    pathFilterNone
+        .attr("d", line)
+        .attr("transform", null)
+      .transition()
+        .duration(500)
+        .ease("linear")
+        .attr("transform", "translate(" + x(-1) + ",0)")
+        .each("end", tick);
+    
+    // pop the old data point off the front
+    data.shift();
+  }//end tick
+  
+  var sockRSSIRawServer = new SockJS('http://0.0.0.0:9999/piBeaconUUID/RSSIRawServer');
+  sockRSSIRawServer.onmessage = function(e) {
+      console.log( "sockRSSIRawServer.onmessage" );
+      console.log( e );
+      
+      // push a new data point onto the back
+      var bleaconBlob = JSON.parse(e.data);
+      console.log( bleaconBlob );
+      console.log( bleaconBlob.rssi );
+      console.log( bleaconBlob.uuid );
+      console.log( bleaconBlob.proximity );
+      
+      data.push( parseFloat(bleaconBlob.rssi) );
+      
+      pathFilterNone
+        .attr("d", line)
+        .attr("transform", null)
+      .transition()
+        .duration(500)
+        .ease("linear")
+        .attr("transform", "translate(" + x(-1) + ",0)")
+        .each("end", tick);
+      
+      data.shift();
+  }
+  
+  var sockRSSIAverageServer = new SockJS('http://0.0.0.0:9999/piBeaconUUID/RSSIAverageServer');
+  sockRSSIAverageServer.onmessage = function(e) {
+      console.log( "sockRSSIAverageServer.onmessage" );
+      console.log( e );
+      
+      // push a new data point onto the back
+      var rssiValue = parseFloat(e.data);
+      console.log( rssiValue );
+      //rssiValue = random();
+      
+      data2.push(rssiValue);
+   
+      // redraw the line, and slide it to the left
+      pathFilterAverage
+          .attr("d", line2)
+          .attr("transform", null)
+        .transition()
+          .duration(500)
+          .ease("linear")
+          .attr("transform", "translate(" + x(-1) + ",0)")
+          .each("end", tick);
+   
+      // pop the old data point off the front
+      data2.shift();
+  }
+  
+  
+  //proximity State
+  var sockRSSIStateServer = new SockJS('http://0.0.0.0:9999/piBeaconUUID/RSSIStateServer');
+  sockRSSIStateServer.onmessage = function(e) {
+      console.log( "sockRSSIRSSIStateServer.onmessage" );
+      console.log( e );
+      
+      // push a new data point onto the back
+      var stateValue = e.data;
+      console.log( stateValue );
+      //current proximity ('unknown', 'immediate', 'near', or 'far')
+      if ( stateValue == "immediate" )
+        data3.push(-20);
+      else if ( stateValue == "near" )
+        data3.push(-50);
+      else if ( stateValue == "far" )
+        data3.push(-80);
+      else if ( stateValue == "unknown" )
+        data3.push(-100);
+      else
+        data3.push(0);
+      
+      // redraw the line, and slide it to the left
+      pathFilterState
+          .attr("d", line3)
+          .attr("transform", null)
+        .transition()
+          .duration(500)
+          .ease("linear")
+          .attr("transform", "translate(" + x(-1) + ",0)")
+          .each("end", tick);
+   
+      // pop the old data point off the front
+      data3.shift();
+  }
+  </script>
+	
+	
+	
+</body>
+</html>

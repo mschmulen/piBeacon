@@ -1,0 +1,20 @@
+{
+  "version": "0.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "loopback": "1.4.x"
+  },
+  "optionalDependencies": {
+    "strong-cluster-control": "~0.1.0",
+    "strong-agent": "~0.2.15",
+    "loopback-explorer": "~1.0.0",
+    "express": "~3.2.4",
+    "ejs": "~0.8.4",
+    "bleacon": "~0.1.2",
+    "sockjs": "~0.3.8"
+  },
+  "name": "piBeacon-kiosk-app"
+}
