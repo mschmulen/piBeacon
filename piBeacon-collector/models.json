@@ -27,32 +27,12 @@
     "dataSource": "db",
     "public": true
   },
-  "location": {
-    "properties": {},
-    "public": true,
-    "dataSource": "db"
-  },
   "ibeacon": {
     "properties": {},
     "public": true,
     "dataSource": "db"
   },
-  "engagement": {
-    "properties": {},
-    "public": true,
-    "dataSource": "db"
-  },
-  "ble-signature": {
-    "properties": {},
-    "public": true,
-    "dataSource": "db"
-  },
-  "person": {
-    "properties": {},
-    "public": true,
-    "dataSource": "db"
-  },
-  "signature": {
+  "location": {
     "properties": {},
     "public": true,
     "dataSource": "db"
