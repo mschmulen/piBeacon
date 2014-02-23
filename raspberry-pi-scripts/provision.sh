@@ -54,12 +54,12 @@ sudo apt-get install redis-server -y
 #  ---------------------------------------------------------------------------
 #  Node Configuration
 #  ---------------------------------------------------------------------------
-wget http://nodejs.org/dist/v0.8.22/node-v0.8.22-linux-arm-pi.tar.gz
+wget http://nodejs.org/dist/v0.8.24/node-v0.8.24-linux-arm-pi.tar.gz
 sudo mkdir /opt/node
-sudo tar -C /opt/node --strip=1 -zxvf node-v0.8.22-linux-arm-pi.tar.gz
+sudo tar -C /opt/node --strip=1 -zxvf node-v0.8.24-linux-arm-pi.tar.gz
 sudo ln -s -f /opt/node/bin/node /usr/bin/node
 sudo ln -s -f /opt/node/bin/npm /usr/bin/npm
-rm -rf node-v0.8.22-linux-arm-pi.tar.gz
+rm -rf node-v0.8.24-linux-arm-pi.tar.gz
 
 #node tools ( forever )
 sudo npm install forever -g
